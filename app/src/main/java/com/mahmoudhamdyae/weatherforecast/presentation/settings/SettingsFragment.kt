@@ -66,6 +66,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
 
 
+
+
+
+
         val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext()).all
 
         preferences.forEach {
