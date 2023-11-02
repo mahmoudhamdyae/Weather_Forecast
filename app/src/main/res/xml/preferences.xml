@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:icon="@drawable/ic_baseline_notifications_24"
+        app:title="Notifications">
+
+        <!-- Notifications -->
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            app:key="notifications"
+            app:title="Enable message notifications"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:icon="@drawable/ic_baseline_wb_sunny_24"
+        app:title="Weather">
+
+        <!-- Location -->
+        <ListPreference
+            android:defaultValue="@string/location_default_value"
+            android:dialogTitle="@string/location_dialog_title"
+            android:entries="@array/pref_location"
+            android:entryValues="@array/pref_location"
+            android:key="location"
+            android:summary="%s"
+            android:title="@string/location_dialog_title" />
+
+        <!-- Temperature -->
+        <ListPreference
+            android:defaultValue="@string/temp_default_value"
+            android:dialogTitle="@string/temperature_dialog_title"
+            android:entries="@array/pref_temp"
+            android:entryValues="@array/pref_temp"
+            android:key="temp"
+            android:summary="%s"
+            android:title="@string/temperature_dialog_title" />
+
+        <!-- Wind Speed -->
+        <ListPreference
+            android:defaultValue="@string/wind_speed_default_value"
+            android:dialogTitle="@string/wind_speed_dialog_title"
+            android:entries="@array/pref_wind_speed"
+            android:entryValues="@array/pref_wind_speed"
+            android:key="wind_speed"
+            android:summary="%s"
+            android:title="@string/wind_speed_dialog_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:icon="@drawable/ic_baseline_settings_24"
+        app:title="General">
+
+        <!-- Language -->
+        <ListPreference
+            android:defaultValue="@string/lang_default_value"
+            android:dialogTitle="@string/language_dialog_title"
+            android:entries="@array/pref_language"
+            android:entryValues="@array/pref_language"
+            android:key="language"
+            android:summary="%s"
+            android:title="@string/language_dialog_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:icon="@drawable/ic_baseline_help_24"
+        app:title="Help">
+
+        <Preference
+            app:key="feedback"
+            app:summary="Report technical issues or suggest new features"
+            app:title="Send feedback"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

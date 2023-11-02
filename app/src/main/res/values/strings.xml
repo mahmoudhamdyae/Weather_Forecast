@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">Weather Forecast</string>
+
+    <!-- Fragments Labels -->
+    <string name="home_label">Home</string>
+    <string name="settings_label">Settings</string>
+    <string name="fav_label">Favourites</string>
+    <string name="alerts_label">Alerts</string>
+
+    <!-- Main Activity -->
+    <string name="today">Today %s</string>
+    <string name="next_days">Next Days</string>
+    <string name="today_label">Today</string>
+    <string name="pressure">Pressure</string>
+    <string name="humidity">Humidity</string>
+    <string name="wind">Wind</string>
+    <string name="turn_on_location_toast">Turn on Location</string>
+    <string name="grant_permissions_toast">You should Grant Permissions</string>
+
+    <!-- Settings -->
+    <string name="location_dialog_title">Location</string>
+    <string name="temperature_dialog_title">Temperature</string>
+    <string name="wind_speed_dialog_title">Wind Speed</string>
+    <string name="language_dialog_title">Language</string>
+    <!-- Settings Default Values -->
+    <string name="location_default_value">GPS</string>
+    <string name="temp_default_value">Celsius</string>
+    <string name="wind_speed_default_value">Meter/Sec</string>
+    <string name="lang_default_value">English</string>
+    <!-- Settings Arrays -->
+    <string-array name="pref_location">
+        <item>GPS</item>
+        <item>Map</item>
+    </string-array>
+    <string-array name="pref_language">
+        <item>English</item>
+        <item>Arabic</item>
+    </string-array>
+    <string-array name="pref_temp">
+        <item>Celsius</item>
+        <item>Kelvin</item>
+        <item>Fahrenheit</item>
+    </string-array>
+    <string-array name="pref_wind_speed">
+        <item>Meter/Sec</item>
+        <item>Mile/Hour</item>
+    </string-array>
+</resources>
