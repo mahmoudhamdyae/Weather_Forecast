@@ -44,6 +44,18 @@
                     app:layout_constraintStart_toStartOf="parent"
                     tools:text="Mansoura"/>
 
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:isErrorNull="@{viewModel.error}"
+                    app:isLoading="@{viewModel.isLoading}"
+                    android:layout_margin="16dp"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="Fri,3 Nov"/>
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/current_day"
                     android:layout_width="match_parent"

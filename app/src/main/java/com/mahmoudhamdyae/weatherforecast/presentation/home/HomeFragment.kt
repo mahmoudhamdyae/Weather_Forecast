@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import androidx.core.location.LocationManagerCompat.isLocationEnabled
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -25,8 +26,9 @@ import com.mahmoudhamdyae.weatherforecast.R
 import com.mahmoudhamdyae.weatherforecast.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
+import java.time.LocalDateTime
+import java.time.format.TextStyle
 import java.util.*
-
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -47,10 +49,15 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         geoCoder = Geocoder(requireContext(), Locale.getDefault())
+        val time = LocalDateTime.now()
+        val textStyle = TextStyle.SHORT
+        val local = Locale.getDefault()
+        binding.time.text = "${time.dayOfWeek.getDisplayName(textStyle, local)},${time.dayOfMonth} ${time.month.getDisplayName(textStyle, local)}"
 
         checkLocationPermissions()
         getLocation()
