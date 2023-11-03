@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.IntentSender
 import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
@@ -23,6 +24,8 @@ import com.google.android.gms.tasks.Task
 import com.mahmoudhamdyae.weatherforecast.R
 import com.mahmoudhamdyae.weatherforecast.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.IOException
+import java.util.*
 
 
 @AndroidEntryPoint
@@ -32,6 +35,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var todayAdapter: TodayAdapter
     private lateinit var nextDaysAdapter: NextDaysAdapter
+    private lateinit var geoCoder: Geocoder
     private var lat = 0.0
     private var lon = 0.0
 
@@ -45,6 +49,8 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        geoCoder = Geocoder(requireContext(), Locale.getDefault())
 
         checkLocationPermissions()
         getLocation()
@@ -161,6 +167,20 @@ class HomeFragment : Fragment() {
                 lat = location.latitude
                 lon = location.longitude
                 binding.viewModel?.getWeather(lat, lon)
+
+                try {
+                    val addresses = geoCoder.getFromLocation(
+                        location.latitude,
+                        location.longitude,
+                        1
+                    )
+                    if (addresses?.size!! > 0) {
+                        println(addresses[0].locality)
+                        binding.locationName.text = addresses[0].locality
+                    }
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
             }
         }
     }
