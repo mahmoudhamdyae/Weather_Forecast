@@ -10,6 +10,7 @@ import com.mahmoudhamdyae.weatherforecast.domain.repository.Repository
 import com.mahmoudhamdyae.weatherforecast.domain.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,9 +24,17 @@ class HomeViewModel @Inject constructor(
     val isFirstTime: LiveData<Boolean>
         get() = _isFirstTime
 
-    private var _weather = MutableLiveData<WeatherInfo?>()
+    private var _weather = MutableLiveData<WeatherInfo?>(null)
     val weather: LiveData<WeatherInfo?>
         get() = _weather
+
+    private var _isLoading = MutableLiveData(true)
+    val isLoading: LiveData<Boolean>
+        get() = _isLoading
+
+    private var _error = MutableLiveData<String?>(null)
+    val error: LiveData<String?>
+        get() = _error
 
     init {
         viewModelScope.launch {
@@ -46,36 +55,24 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
 //            preferences.readLatitude.collect { latitude ->
 //                preferences.readLongitude.collect { longitude ->
-
 //                    if (latitude != null && longitude != null) {
 //                        _uiState.update {
 //                            WeatherUiState(isLoading = true, error = null)
 //                        }
 //                        when (val result = repository.getWeather(latitude, longitude)) {
+            delay(3000)
             when (val result = repository.getWeather(lat, lon)) {
                 is Resource.Success -> {
+                    _isLoading.postValue(false)
+                    _error.postValue(result.message)
                     _weather.postValue(result.data)
-//                                _uiState.update {
-//                                    WeatherUiState(
-//                                        weatherInfo = result.data,
-//                                        isLoading = false,
-//                                        error = null
-//                                    )
-//                                }
                 }
                 is Resource.Error -> {
-//                                _uiState.update {
-//                                    WeatherUiState(
-//                                        weatherInfo = null,
-//                                        isLoading = false,
-//                                        error = result.message
-//                                    )
-//                                }
+                    _isLoading.postValue(false)
+                    _error.postValue(result.message)
+                    _weather.postValue(null)
                 }
             }
-//                    }
-//                }
-//            }
         }
     }
 }

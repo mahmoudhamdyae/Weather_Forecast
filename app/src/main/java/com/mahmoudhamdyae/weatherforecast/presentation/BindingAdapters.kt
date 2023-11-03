@@ -1,5 +1,6 @@
 package com.mahmoudhamdyae.weatherforecast.presentation
 
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -35,5 +36,14 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
                     .placeholder(R.drawable.loading_img)
                     .error(R.drawable.ic_broken_image))
             .into(imgView)
+    }
+}
+
+@BindingAdapter("isLoading")
+fun bindIsLoading(view: View, isLoading: Boolean) {
+    if (!isLoading) {
+        view.visibility = View.VISIBLE
+    } else {
+        view.visibility = View.GONE
     }
 }
