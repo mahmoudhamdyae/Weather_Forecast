@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mahmoudhamdyae.weatherforecast.R
 import com.mahmoudhamdyae.weatherforecast.domain.model.WeatherInfo
 import com.mahmoudhamdyae.weatherforecast.domain.repository.PreferencesRepository
 import com.mahmoudhamdyae.weatherforecast.domain.repository.Repository
@@ -60,7 +61,6 @@ class HomeViewModel @Inject constructor(
 //                            WeatherUiState(isLoading = true, error = null)
 //                        }
 //                        when (val result = repository.getWeather(latitude, longitude)) {
-//            delay(3000)
             when (val result = repository.getWeather(lat, lon)) {
                 is Resource.Success -> {
                     _isLoading.postValue(false)
@@ -69,7 +69,7 @@ class HomeViewModel @Inject constructor(
                 }
                 is Resource.Error -> {
                     _isLoading.postValue(false)
-                    _error.postValue(result.message)
+                    _error.postValue("Please, Check your network")
                     _weather.postValue(null)
                 }
             }

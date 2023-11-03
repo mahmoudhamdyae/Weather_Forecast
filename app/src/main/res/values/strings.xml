@@ -14,7 +14,6 @@
     <string name="pressure">Pressure</string>
     <string name="humidity">Humidity</string>
     <string name="wind">Wind</string>
-    <string name="turn_on_location_toast">Turn on Location</string>
     <string name="grant_permissions_toast">You should Grant Permissions</string>
 
     <!-- Settings -->

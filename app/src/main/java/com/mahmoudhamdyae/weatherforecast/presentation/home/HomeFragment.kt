@@ -32,6 +32,8 @@ class HomeFragment : Fragment() {
 
     private lateinit var todayAdapter: TodayAdapter
     private lateinit var nextDaysAdapter: NextDaysAdapter
+    private var lat = 0.0
+    private var lon = 0.0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,6 +67,13 @@ class HomeFragment : Fragment() {
         viewModel.isFirstTime.observe(this) {
             if (it) Toast.makeText(requireContext(), "First time", Toast.LENGTH_SHORT).show()
             else Toast.makeText(requireContext(), "Not first time", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.swipe.setOnRefreshListener {
+            if (lat != 0.0 && lon != 0.0) {
+                viewModel.getWeather(lat, lon)
+                binding.swipe.isRefreshing = false
+            }
         }
     }
 
@@ -149,16 +158,14 @@ class HomeFragment : Fragment() {
         mFusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
             // Got last known location. In some rare situations this can be null.
             if (location != null) {
-                binding.viewModel?.getWeather(location.latitude, location.longitude)
+                lat = location.latitude
+                lon = location.longitude
+                binding.viewModel?.getWeather(lat, lon)
             }
         }
     }
 
     private fun onLocationPermissionsNotGranted() {
         Toast.makeText(requireContext(), getString(R.string.grant_permissions_toast), Toast.LENGTH_SHORT).show()
-    }
-
-    private fun onLocationNotGranted() {
-        Toast.makeText(requireContext(), getString(R.string.turn_on_location_toast), Toast.LENGTH_SHORT).show()
     }
 }
