@@ -275,14 +275,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:drawableTopCompat="@drawable/ic_baseline_network_check_24"
                     android:text="@{viewModel.error}"
                     android:textAlignment="center"
                     android:textColor="@color/md_theme_error"
-                    android:textSize="20sp"
+                    android:textSize="24sp"
+                    app:errorVisibility="@{viewModel.error}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

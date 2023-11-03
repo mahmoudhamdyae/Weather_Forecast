@@ -65,3 +65,12 @@ fun bindLoadingAndError(view: View, isLoading: Boolean, error: String?) {
         view.visibility = View.GONE
     }
 }
+
+@BindingAdapter("errorVisibility")
+fun bindErrorVisibility(view: View, error: String?) {
+    if (error != null) {
+        view.visibility = View.VISIBLE
+    } else {
+        view.visibility = View.GONE
+    }
+}
