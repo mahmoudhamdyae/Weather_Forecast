@@ -1,7 +1,12 @@
 package com.mahmoudhamdyae.weatherforecast.presentation.settings
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
@@ -17,6 +22,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
         // Notifications
         findPreference<Preference>("notifications")
             ?.setOnPreferenceChangeListener { _, newValue ->
+                if (newValue == true) {
+                    askNotificationPermission()
+                }
                 Log.d(TAG, "Notifications enabled: $newValue")
                 true
             }
@@ -76,6 +84,38 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         preferences.forEach {
             Log.d("Preferences", "${it.key} -> ${it.value}")
+        }
+    }
+
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission(),
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            // FCM SDK (and your app) can post notifications.
+            val sp = PreferenceManager.getDefaultSharedPreferences(requireContext())
+            PreferenceManager.setDefaultValues(requireContext(), R.xml.preferences, true)
+            sp.edit().putBoolean("notifications", true).apply()
+        } else {
+            val sp = PreferenceManager.getDefaultSharedPreferences(requireContext())
+            PreferenceManager.setDefaultValues(requireContext(), R.xml.preferences, true)
+            sp.edit().putBoolean("notifications", false).apply()
+
+            preferenceScreen = null
+            addPreferencesFromResource(R.xml.preferences)
+        }
+    }
+
+    private fun askNotificationPermission() {
+        // This is only necessary for API level >= 33 (TIRAMISU)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.POST_NOTIFICATIONS) ==
+                PackageManager.PERMISSION_GRANTED
+            ) {
+                // FCM SDK (and your app) can post notifications.
+            } else {
+                // Directly ask for the permission
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
         }
     }
 }

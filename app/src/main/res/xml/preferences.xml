@@ -8,7 +8,7 @@
 
         <!-- Notifications -->
         <SwitchPreferenceCompat
-            android:defaultValue="true"
+            android:defaultValue="false"
             app:key="notifications"
             app:title="Enable message notifications"/>
 
