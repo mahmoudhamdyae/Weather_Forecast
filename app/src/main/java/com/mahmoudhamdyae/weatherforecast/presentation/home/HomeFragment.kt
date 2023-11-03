@@ -5,13 +5,14 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.IntentSender
 import android.content.pm.PackageManager
+import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -23,7 +24,6 @@ import com.mahmoudhamdyae.weatherforecast.R
 import com.mahmoudhamdyae.weatherforecast.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-private const val PERMISSION_Location_ID = 5005
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -32,7 +32,6 @@ class HomeFragment : Fragment() {
 
     private lateinit var todayAdapter: TodayAdapter
     private lateinit var nextDaysAdapter: NextDaysAdapter
-    private lateinit var mFusedLocationClient: FusedLocationProviderClient
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,11 +66,6 @@ class HomeFragment : Fragment() {
             if (it) Toast.makeText(requireContext(), "First time", Toast.LENGTH_SHORT).show()
             else Toast.makeText(requireContext(), "Not first time", Toast.LENGTH_SHORT).show()
         }
-
-
-        viewModel.getWeather(33.23, 31.32)
-
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
     }
 
     private fun checkLocationPermissions() = ActivityCompat.checkSelfPermission(
@@ -88,7 +82,6 @@ class HomeFragment : Fragment() {
             if (isLocationEnabled()) {
                 requestNetworkLocalData()
             } else {
-                onLocationNotGranted()
                 openLocationDialog(requireContext())
             }
         } else {
@@ -121,41 +114,26 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions(),
+    ) {
+        if (
+            it[Manifest.permission.ACCESS_COARSE_LOCATION] == true ||
+            it[Manifest.permission.ACCESS_FINE_LOCATION] == true
+        ) {
+            getLocation()
+        } else {
+            onLocationPermissionsNotGranted()
+        }
+    }
+
     private fun requestLocationPermissions() {
-        ActivityCompat.requestPermissions(
-            requireActivity(),
+        requestPermissionLauncher.launch(
             arrayOf(
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION,
-            ),
-            PERMISSION_Location_ID
+            )
         )
-    }
-
-    private val mLocationCallback = object: LocationCallback() {
-        override fun onLocationResult(locationResult: LocationResult) {
-            super.onLocationResult(locationResult)
-            val mLastLocation = locationResult.lastLocation
-            // todo
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == PERMISSION_Location_ID) {
-            if (
-                grantResults[0] == PackageManager.PERMISSION_GRANTED ||
-                grantResults[1] == PackageManager.PERMISSION_GRANTED
-            ) {
-                getLocation()
-            } else {
-                onLocationPermissionsNotGranted()
-            }
-        }
     }
 
     private fun isLocationEnabled(): Boolean {
@@ -166,17 +144,14 @@ class HomeFragment : Fragment() {
 
     @SuppressLint("MissingPermission")
     private fun requestNetworkLocalData() {
-        val mLocationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 0).apply {
-            setGranularity(Granularity.GRANULARITY_PERMISSION_LEVEL)
-            setWaitForAccurateLocation(true)
-        }.build()
-
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
-        mFusedLocationClient.requestLocationUpdates(
-            mLocationRequest,
-            mLocationCallback,
-            Looper.myLooper()
-        )
+        val mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        mFusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null)
+        mFusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+            // Got last known location. In some rare situations this can be null.
+            if (location != null) {
+                binding.viewModel?.getWeather(location.latitude, location.longitude)
+            }
+        }
     }
 
     private fun onLocationPermissionsNotGranted() {

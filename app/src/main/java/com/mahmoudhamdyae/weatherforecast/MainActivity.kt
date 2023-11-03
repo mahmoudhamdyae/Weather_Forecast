@@ -30,12 +30,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        requestNotificationPermission()
-
         // Bottom Navigation
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val bottomView = findViewById<BottomNavigationView>(R.id.bottom_nav)
         setupWithNavController(bottomView, navHostFragment.navController)
+
+        requestNotificationPermission()
     }
 
     private fun requestNotificationPermission() {

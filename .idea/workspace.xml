@@ -9,7 +9,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b361870e-cab0-4b78-97f7-28e408c1799a" name="Changes" comment="Notifications Permission">
+    <list default="true" id="b361870e-cab0-4b78-97f7-28e408c1799a" name="Changes" comment="Location Permission">
       <change beforePath="$PROJECT_DIR$/.gradle/8.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.4/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.4/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.4/fileHashes/fileHashes.bin" afterDir="false" />
@@ -26,7 +26,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/media/mahmoudhamdyae/Android/avd/Pixel_4_API_33.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[AXPMVB1B19006761]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -325,7 +325,14 @@
       <option name="project" value="LOCAL" />
       <updated>1699000080978</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Location Permission">
+      <created>1699010514084</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1699010514084</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -361,6 +368,7 @@
     <MESSAGE value="Settings" />
     <MESSAGE value="Settings Finish" />
     <MESSAGE value="Notifications Permission" />
-    <option name="LAST_COMMIT_MESSAGE" value="Notifications Permission" />
+    <MESSAGE value="Location Permission" />
+    <option name="LAST_COMMIT_MESSAGE" value="Location Permission" />
   </component>
 </project>
