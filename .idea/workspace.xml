@@ -9,7 +9,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b361870e-cab0-4b78-97f7-28e408c1799a" name="Changes" comment="Location Permission">
+    <list default="true" id="b361870e-cab0-4b78-97f7-28e408c1799a" name="Changes" comment="Loading">
       <change beforePath="$PROJECT_DIR$/.gradle/8.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.4/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.4/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.4/fileHashes/fileHashes.bin" afterDir="false" />
@@ -340,7 +340,14 @@
       <option name="project" value="LOCAL" />
       <updated>1699013983282</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Loading">
+      <created>1699016172520</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1699016172520</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -377,6 +384,7 @@
     <MESSAGE value="Settings Finish" />
     <MESSAGE value="Notifications Permission" />
     <MESSAGE value="Location Permission" />
-    <option name="LAST_COMMIT_MESSAGE" value="Location Permission" />
+    <MESSAGE value="Loading" />
+    <option name="LAST_COMMIT_MESSAGE" value="Loading" />
   </component>
 </project>

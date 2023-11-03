@@ -60,7 +60,7 @@ class HomeViewModel @Inject constructor(
 //                            WeatherUiState(isLoading = true, error = null)
 //                        }
 //                        when (val result = repository.getWeather(latitude, longitude)) {
-            delay(3000)
+//            delay(3000)
             when (val result = repository.getWeather(lat, lon)) {
                 is Resource.Success -> {
                     _isLoading.postValue(false)

@@ -47,3 +47,21 @@ fun bindIsLoading(view: View, isLoading: Boolean) {
         view.visibility = View.GONE
     }
 }
+
+@BindingAdapter("isErrorNull")
+fun bindIsErrorNullability(view: View, error: String?) {
+    if (error == null) {
+        view.visibility = View.VISIBLE
+    } else {
+        view.visibility = View.GONE
+    }
+}
+
+@BindingAdapter("isLoading", "isErrorNull")
+fun bindLoadingAndError(view: View, isLoading: Boolean, error: String?) {
+    if (error == null && !isLoading) {
+        view.visibility = View.VISIBLE
+    } else {
+        view.visibility = View.GONE
+    }
+}

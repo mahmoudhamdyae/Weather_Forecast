@@ -34,6 +34,7 @@
                 android:layout_margin="16dp"
                 android:elevation="16dp"
                 app:cardCornerRadius="10dp"
+                app:isErrorNull="@{viewModel.error}"
                 app:isLoading="@{viewModel.isLoading}"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -215,6 +216,7 @@
                 android:layout_margin="16dp"
                 android:text="@string/today_label"
                 android:textSize="20sp"
+                app:isErrorNull="@{viewModel.error}"
                 app:isLoading="@{viewModel.isLoading}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/current_day" />
@@ -225,6 +227,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:orientation="horizontal"
+                app:isErrorNull="@{viewModel.error}"
                 app:isLoading="@{viewModel.isLoading}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toBottomOf="@+id/today_label"
@@ -238,6 +241,7 @@
                 android:layout_margin="16dp"
                 android:text="@string/next_days"
                 android:textSize="20sp"
+                app:isErrorNull="@{viewModel.error}"
                 app:isLoading="@{viewModel.isLoading}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/today_recycler_view" />
@@ -247,6 +251,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:orientation="vertical"
+                app:isErrorNull="@{viewModel.error}"
                 app:isLoading="@{viewModel.isLoading}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toBottomOf="@+id/next_days_label"
@@ -257,6 +262,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 app:isLoading="@{!viewModel.isLoading}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.error}"
+                android:textColor="@color/md_theme_error"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
