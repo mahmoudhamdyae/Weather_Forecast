@@ -8,7 +8,6 @@
         android:layout_height="match_parent"
         tools:context=".presentation.map.MapActivity">
 
-
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
@@ -21,6 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:text="@string/add_this_location_button"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

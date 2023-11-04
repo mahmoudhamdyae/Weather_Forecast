@@ -181,7 +181,6 @@ class HomeFragment : Fragment() {
                         1
                     )
                     if (addresses?.size!! > 0) {
-                        println(addresses[0].locality)
                         binding.locationName.text = addresses[0].locality
                     }
                 } catch (e: IOException) {
