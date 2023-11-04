@@ -15,7 +15,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
-import androidx.core.location.LocationManagerCompat.isLocationEnabled
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -84,7 +83,7 @@ class HomeFragment : Fragment() {
 
         binding.swipe.setOnRefreshListener {
             if (lat != 0.0 && lon != 0.0) {
-                viewModel.getWeather(lat, lon)
+                viewModel.getWeather(lat, lon, requireContext())
                 binding.swipe.isRefreshing = false
             }
         }
@@ -173,7 +172,7 @@ class HomeFragment : Fragment() {
             if (location != null) {
                 lat = location.latitude
                 lon = location.longitude
-                binding.viewModel?.getWeather(lat, lon)
+                binding.viewModel?.getWeather(lat, lon, requireContext())
 
                 try {
                     val addresses = geoCoder.getFromLocation(

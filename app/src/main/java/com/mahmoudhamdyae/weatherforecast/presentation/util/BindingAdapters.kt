@@ -1,4 +1,4 @@
-package com.mahmoudhamdyae.weatherforecast.presentation
+package com.mahmoudhamdyae.weatherforecast.presentation.util
 
 import android.view.View
 import android.widget.ImageView

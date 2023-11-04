@@ -11,12 +11,19 @@ class RepositoryImpl @Inject constructor(
     private val apiService: ApiService
 ): Repository {
 
-    override suspend fun getWeather(lat: Double, lon: Double): Resource<WeatherInfo> {
+    override suspend fun getWeather(
+        lat: Double,
+        lon: Double,
+        windSpeed: String,
+        language: String
+    ): Resource<WeatherInfo> {
         return try {
             Resource.Success(
                 data = apiService.getWeather(
                     lat = lat,
-                    lon = lon
+                    lon = lon,
+                    windSpeed = windSpeed,
+                    language = language
                 ).toWeatherInfo()
             )
         } catch(e: Exception) {

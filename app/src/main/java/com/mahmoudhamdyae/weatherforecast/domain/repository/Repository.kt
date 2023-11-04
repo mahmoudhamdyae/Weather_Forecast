@@ -5,5 +5,10 @@ import com.mahmoudhamdyae.weatherforecast.domain.util.Resource
 
 interface Repository {
 
-    suspend fun getWeather(lat: Double, lon: Double): Resource<WeatherInfo>
+    suspend fun getWeather(
+        lat: Double,
+        lon: Double,
+        windSpeed: String,
+        language: String
+    ): Resource<WeatherInfo>
 }
