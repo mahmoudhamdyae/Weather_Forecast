@@ -1,9 +1,11 @@
 package com.mahmoudhamdyae.weatherforecast
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -11,6 +13,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.preference.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.mahmoudhamdyae.weatherforecast.presentation.map.LATITUDE
+import com.mahmoudhamdyae.weatherforecast.presentation.map.LONGITUDE
+import com.mahmoudhamdyae.weatherforecast.presentation.map.NAME
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,6 +34,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+//        val lat = intent.getDoubleExtra(LATITUDE, Double.MAX_VALUE)
+//        val lon = intent.getDoubleExtra(LONGITUDE, Double.MAX_VALUE)
+//        val name = intent.getStringExtra(NAME)
+//        Log.i("hahahahahahah", "requestNetworkLocalData: lat: $lat")
+//        Log.i("hahahahahahah", "requestNetworkLocalData: lon: $lon")
+//        Log.i("hahahahahahah", "requestNetworkLocalData: name: $name")
 
         // Bottom Navigation
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment

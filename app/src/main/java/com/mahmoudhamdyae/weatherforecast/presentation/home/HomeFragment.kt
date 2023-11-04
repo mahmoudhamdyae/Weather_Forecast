@@ -3,12 +3,14 @@ package com.mahmoudhamdyae.weatherforecast.presentation.home
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +25,9 @@ import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
 import com.mahmoudhamdyae.weatherforecast.R
 import com.mahmoudhamdyae.weatherforecast.databinding.FragmentHomeBinding
+import com.mahmoudhamdyae.weatherforecast.presentation.map.LATITUDE
+import com.mahmoudhamdyae.weatherforecast.presentation.map.LONGITUDE
+import com.mahmoudhamdyae.weatherforecast.presentation.map.NAME
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
 import java.time.LocalDateTime
@@ -37,8 +42,9 @@ class HomeFragment : Fragment() {
     private lateinit var todayAdapter: TodayAdapter
     private lateinit var nextDaysAdapter: NextDaysAdapter
     private lateinit var geoCoder: Geocoder
-    private var lat = 0.0
-    private var lon = 0.0
+    private var lat: Double = 0.0
+    private var lon: Double = 0.0
+    private var name: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,6 +58,20 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val viewModel: HomeViewModel by viewModels()
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+        todayAdapter = TodayAdapter()
+        nextDaysAdapter = NextDaysAdapter()
+        binding.todayAdapter = todayAdapter
+        binding.nextDaysAdapter = nextDaysAdapter
+
+        val intent = activity?.intent
+        lat = intent?.getDoubleExtra(LATITUDE, 0.0) ?: 0.0
+        lon = intent?.getDoubleExtra(LONGITUDE, 0.0) ?: 0.0
+        name = intent?.getStringExtra(NAME)
+        if (name != null) binding.locationName.text = name
+
         geoCoder = Geocoder(requireContext(), Locale.getDefault())
         val time = LocalDateTime.now()
         val textStyle = TextStyle.SHORT
@@ -59,17 +79,11 @@ class HomeFragment : Fragment() {
         binding.time.text = "${time.dayOfWeek.getDisplayName(textStyle, local)},${time.dayOfMonth} ${time.month.getDisplayName(textStyle, local)}"
 
         checkLocationPermissions()
-        getLocation()
-
-        val viewModel: HomeViewModel by viewModels()
-
-        binding.lifecycleOwner = this
-        binding.viewModel = viewModel
-
-        todayAdapter = TodayAdapter()
-        nextDaysAdapter = NextDaysAdapter()
-        binding.todayAdapter = todayAdapter
-        binding.nextDaysAdapter = nextDaysAdapter
+        if (lat == 0.0 || lon == 0.0) {
+            getLocation()
+        } else {
+            viewModel.getWeather(lat, lon, requireContext())
+        }
 
         viewModel.weather.observe(viewLifecycleOwner) {
             todayAdapter.submitList(it?.weatherDataPerDay?.get(0))

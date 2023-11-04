@@ -5,14 +5,12 @@ import android.location.Geocoder
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.mahmoudhamdyae.weatherforecast.MainActivity
@@ -21,6 +19,10 @@ import com.mahmoudhamdyae.weatherforecast.databinding.ActivityMapBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
 import java.util.*
+
+const val LATITUDE: String = "LATITUDE"
+const val LONGITUDE: String = "LONGITUDE"
+const val NAME: String = "NAME"
 
 @AndroidEntryPoint
 class MapActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -46,6 +48,9 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         binding.addThisLocationButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra(LATITUDE, lat)
+            intent.putExtra(LONGITUDE, lon)
+            intent.putExtra(NAME, name)
             startActivity(intent)
             finish()
         }
