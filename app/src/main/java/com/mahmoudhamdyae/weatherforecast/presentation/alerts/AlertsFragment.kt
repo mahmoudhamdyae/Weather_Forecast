@@ -1,20 +1,25 @@
 package com.mahmoudhamdyae.weatherforecast.presentation.alerts
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mahmoudhamdyae.weatherforecast.R
 import com.mahmoudhamdyae.weatherforecast.databinding.FragmentAlertsBinding
-import com.mahmoudhamdyae.weatherforecast.databinding.FragmentFavBinding
+import com.mahmoudhamdyae.weatherforecast.domain.model.Alarm
 
 class AlertsFragment : Fragment() {
 
     private lateinit var binding: FragmentAlertsBinding
 
-    override fun onCreateView(
+    private lateinit var adapter: AlertsAdapter
+    private lateinit var viewModel: AlertsViewModel
+
+            override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
@@ -24,5 +29,34 @@ class AlertsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(requireActivity())[AlertsViewModel::class.java]
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+        adapter = AlertsAdapter(::showDelDialog)
+        binding.alarmAdapter = adapter
+
+        viewModel.alarms.observe(viewLifecycleOwner, adapter::submitList)
+
+        binding.addFab.setOnClickListener {
+            addAlarm()
+        }
+    }
+
+    private fun showDelDialog(alarm: Alarm) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setMessage(R.string.dialog_del_alarm)
+            .setPositiveButton(R.string.dialog_del_ok) { dialog, _ ->
+                viewModel.delAlarm(alarm)
+                dialog.dismiss()
+            }
+            .setNegativeButton(R.string.dialog_del_cancel) { dialog, _ ->
+                // User cancelled the dialog
+                dialog.dismiss()
+            }.show()
+    }
+
+    private fun addAlarm() {
+        //
     }
 }

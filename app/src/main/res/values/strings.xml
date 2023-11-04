@@ -22,13 +22,19 @@
     <string name="ok">OK</string>
 
     <!-- Fav Screen -->
-    <string name="add_content_description">Add Favourites</string>
+    <string name="add_fav_content_description">Add favourite</string>
     <string name="del_content_description">Delete</string>
     <string name="empty_fav">There is no favourites</string>
     <!-- Del Dialog -->
     <string name="dialog_del">Are you sure you want to delete this saved location?</string>
     <string name="dialog_del_ok">Delete</string>
     <string name="dialog_del_cancel">Cancel</string>
+
+    <!-- Alarms Screen -->
+    <string name="add_alarm_content_description">Add alarm</string>
+    <string name="empty_alarm">There is no alarms</string>
+    <!-- Del Dialog -->
+    <string name="dialog_del_alarm">Are you sure you want to delete this saved alarm?</string>
 
     <!-- Map Activity -->
     <string name="add_this_location_button">Add this location</string>

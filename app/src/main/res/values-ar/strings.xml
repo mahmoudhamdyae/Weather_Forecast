@@ -22,13 +22,19 @@
     <string name="ok">حسنا</string>
 
     <!-- Fav Screen -->
-    <string name="add_content_description">الإضافة إلى المفضلة</string>
+    <string name="add_fav_content_description">الإضافة إلى المفضلة</string>
     <string name="del_content_description">حذف</string>
     <string name="empty_fav">لا يوجد مفضلات حاليا</string>
     <!-- Del Dialog -->
     <string name="dialog_del">هل أنت متأكد من حذف هذا الموقع؟</string>
     <string name="dialog_del_ok">حذف</string>
     <string name="dialog_del_cancel">الغاء</string>
+
+    <!-- Alarms Screen -->
+    <string name="add_alarm_content_description">إضافة منبه</string>
+    <string name="empty_alarm">لا يوجد منبهات حاليا</string>
+    <!-- Del Dialog -->
+    <string name="dialog_del_alarm">هل أنت متأكد من حذف هذا التنبيه؟</string>
 
     <!-- Map Activity -->
     <string name="add_this_location_button">أضف هذا الموقع</string>
@@ -39,12 +45,12 @@
     <string name="wind_speed_dialog_title">سرعة الرياح</string>
     <string name="language_dialog_title">اللغة</string>
     <!-- Settings Default Values -->
-    <string name="location_default_value">نظام تحديد المواقع</string>
+    <string name="location_default_value">موقعى الحالى</string>
     <string name="temp_default_value">سيليزيوس</string>
     <string name="wind_speed_default_value">متر/ثانية</string>
     <string name="lang_default_value">الإنجليزية</string>
     <!-- Settings Values -->
-    <string name="pref_location_gps">نظام تحديد المواقع</string>
+    <string name="pref_location_gps">موقعى الحالى</string>
     <string name="pref_location_map">الخرائط</string>
     <string name="pref_temp_celsius">سيليزيوس</string>
     <string name="pref_temp_kelvin">كلفن</string>
@@ -55,7 +61,7 @@
     <string name="pref_language_arabic">العربية</string>
     <!-- Settings Arrays -->
     <string-array name="pref_location">
-        <item>نظام تحديد المواقع</item>
+        <item>موقعى الحالى</item>
         <item>الخرائط</item>
     </string-array>
     <string-array name="pref_language">
