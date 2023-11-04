@@ -18,6 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WeatherForecast"
         tools:targetApi="34">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
+
         <activity
             android:name=".presentation.map.MapActivity"
             android:exported="false">
