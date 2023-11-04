@@ -16,6 +16,18 @@
     <string name="wind">الرياح</string>
     <string name="grant_permissions_toast">يتبغى أن توافق على الأذونات</string>
 
+    <!-- Fav Screen -->
+    <string name="add_content_description">الإضافة إلى المفضلة</string>
+    <string name="del_content_description">حذف</string>
+    <string name="empty_fav">لا يوجد مفضلات حاليا</string>
+    <!-- Del Dialog -->
+    <string name="dialog_del">هل أنت متأكد من حذف هذا الموقع؟</string>
+    <string name="dialog_del_ok">حذف</string>
+    <string name="dialog_del_cancel">الغاء</string>
+
+    <!-- Map Activity -->
+    <string name="add_this_location_button">أضف هذا الموقع</string>
+
     <!-- Settings -->
     <string name="location_dialog_title">الموقع</string>
     <string name="temperature_dialog_title">درحة الحرارة</string>

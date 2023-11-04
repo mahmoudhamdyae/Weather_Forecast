@@ -16,6 +16,18 @@
     <string name="wind">Wind</string>
     <string name="grant_permissions_toast">You should Grant Permissions</string>
 
+    <!-- Fav Screen -->
+    <string name="add_content_description">Add Favourites</string>
+    <string name="del_content_description">Delete</string>
+    <string name="empty_fav">There is no favourites</string>
+    <!-- Del Dialog -->
+    <string name="dialog_del">Are you sure you want to delete this saved location?</string>
+    <string name="dialog_del_ok">Delete</string>
+    <string name="dialog_del_cancel">Cancel</string>
+
+    <!-- Map Activity -->
+    <string name="add_this_location_button">Add this location</string>
+
     <!-- Settings -->
     <string name="location_dialog_title">Location</string>
     <string name="temperature_dialog_title">Temperature</string>

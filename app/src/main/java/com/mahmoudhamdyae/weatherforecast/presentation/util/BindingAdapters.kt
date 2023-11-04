@@ -74,3 +74,12 @@ fun bindErrorVisibility(view: View, error: String?) {
         view.visibility = View.GONE
     }
 }
+
+@BindingAdapter("visibilityIfEmpty")
+fun bindVisibility(view: View, list: List<Any>) {
+    if (list.isEmpty()) {
+        view.visibility = View.VISIBLE
+    } else {
+        view.visibility = View.GONE
+    }
+}

@@ -71,7 +71,7 @@ class HomeFragment : Fragment() {
         binding.todayAdapter = todayAdapter
         binding.nextDaysAdapter = nextDaysAdapter
 
-        viewModel.weather.observe(this) {
+        viewModel.weather.observe(viewLifecycleOwner) {
             todayAdapter.submitList(it?.weatherDataPerDay?.get(0))
             nextDaysAdapter.submitList(it?.daily)
         }
