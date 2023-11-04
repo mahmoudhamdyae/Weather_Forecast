@@ -7,7 +7,7 @@
     <string name="fav_label">Favourites</string>
     <string name="alerts_label">Alerts</string>
 
-    <!-- Main Activity -->
+    <!-- Home Screen -->
     <string name="today">Today %s</string>
     <string name="next_days">Next Days</string>
     <string name="today_label">Today</string>
@@ -15,6 +15,7 @@
     <string name="humidity">Humidity</string>
     <string name="wind">Wind</string>
     <string name="grant_permissions_toast">You should Grant Permissions</string>
+    <string name="no_connection_toast">There is no connection</string>
 
     <!-- Fav Screen -->
     <string name="add_content_description">Add Favourites</string>

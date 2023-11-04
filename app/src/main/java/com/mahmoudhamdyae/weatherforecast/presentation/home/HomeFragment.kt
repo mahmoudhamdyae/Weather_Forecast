@@ -3,14 +3,14 @@ package com.mahmoudhamdyae.weatherforecast.presentation.home
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -86,6 +86,9 @@ class HomeFragment : Fragment() {
         }
 
         viewModel.weather.observe(viewLifecycleOwner) {
+            if (!isNetworkAvailable(requireContext())) {
+                Toast.makeText(requireContext(), R.string.no_connection_toast, Toast.LENGTH_SHORT).show()
+            }
             todayAdapter.submitList(it?.weatherDataPerDay?.get(0))
             nextDaysAdapter.submitList(it?.daily)
         }
@@ -206,5 +209,16 @@ class HomeFragment : Fragment() {
 
     private fun onLocationPermissionsNotGranted() {
         Toast.makeText(requireContext(), getString(R.string.grant_permissions_toast), Toast.LENGTH_SHORT).show()
+    }
+
+    private fun isNetworkAvailable(context: Context): Boolean {
+        val connectivityManager =
+            (context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
+        return connectivityManager.run {
+            getNetworkCapabilities(activeNetwork)?.run {
+                hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
+                        || hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+            } ?: false
+        }
     }
 }
