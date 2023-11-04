@@ -93,9 +93,10 @@ class HomeFragment : Fragment() {
             nextDaysAdapter.submitList(it?.daily)
         }
 
-        viewModel.isFirstTime.observe(this) {
-            if (it) Toast.makeText(requireContext(), "First time", Toast.LENGTH_SHORT).show()
-            else Toast.makeText(requireContext(), "Not first time", Toast.LENGTH_SHORT).show()
+        viewModel.isFirstTime.observe(this) { isFirstTime ->
+            if (isFirstTime) {
+                showInitialSetupDialog()
+            }
         }
 
         binding.swipe.setOnRefreshListener {
@@ -104,6 +105,15 @@ class HomeFragment : Fragment() {
                 binding.swipe.isRefreshing = false
             }
         }
+    }
+
+    private fun showInitialSetupDialog() {
+
+
+        val dialogFragment = InitialSetupDialogFragment()
+        dialogFragment.isCancelable = false
+        val transaction = activity?.supportFragmentManager?.beginTransaction()
+        dialogFragment.show(transaction!!, InitialSetupDialogFragment.TAG)
     }
 
     private fun checkLocationPermissions() = ActivityCompat.checkSelfPermission(

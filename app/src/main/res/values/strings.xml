@@ -16,6 +16,10 @@
     <string name="wind">Wind</string>
     <string name="grant_permissions_toast">You should Grant Permissions</string>
     <string name="no_connection_toast">There is no connection</string>
+    <!-- Initial Setup Dialog -->
+    <string name="initial_setup">Initial Setup</string>
+    <string name="notifications">Notifications</string>
+    <string name="ok">OK</string>
 
     <!-- Fav Screen -->
     <string name="add_content_description">Add Favourites</string>

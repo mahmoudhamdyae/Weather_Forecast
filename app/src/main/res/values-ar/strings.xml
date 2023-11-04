@@ -16,6 +16,10 @@
     <string name="wind">الرياح</string>
     <string name="grant_permissions_toast">يتبغى أن توافق على الأذونات</string>
     <string name="no_connection_toast">لا يوجد اتصال بالإنترنت</string>
+    <!-- Initial Setup Dialog -->
+    <string name="initial_setup">Initial Setup</string>
+    <string name="notifications">الإشعارات</string>
+    <string name="ok">حسنا</string>
 
     <!-- Fav Screen -->
     <string name="add_content_description">الإضافة إلى المفضلة</string>
