@@ -1,7 +1,9 @@
 package com.mahmoudhamdyae.weatherforecast.presentation.settings
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +13,9 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.mahmoudhamdyae.weatherforecast.R
+import android.content.ActivityNotFoundException
+import android.widget.Toast
+
 
 private const val TAG = "Preferences"
 
@@ -61,30 +66,19 @@ class SettingsFragment : PreferenceFragmentCompat() {
         findPreference<Preference>("feedback")
             ?.setOnPreferenceClickListener {
                 Log.d(TAG, "Feedback was clicked")
+
+                val mailto = "mailto:mahmoudhamdyae@gmail.com" +
+                        "?subject=" + "Weather forecast feedback"
+                val emailIntent = Intent(Intent.ACTION_SENDTO)
+                emailIntent.data = Uri.parse(mailto)
+
+                try {
+                    startActivity(emailIntent)
+                } catch (e: ActivityNotFoundException) {
+                    Toast.makeText(requireContext(), "There is no email app available", Toast.LENGTH_SHORT).show()
+                }
                 true
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext()).all
-
-        preferences.forEach {
-            Log.d("Preferences", "${it.key} -> ${it.value}")
-        }
     }
 
     private val requestPermissionLauncher = registerForActivityResult(
