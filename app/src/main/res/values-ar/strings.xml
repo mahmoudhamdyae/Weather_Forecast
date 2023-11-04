@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">Weather Forecast</string>
+
+    <!-- Fragments Labels -->
+    <string name="home_label">الرئيسية</string>
+    <string name="settings_label">الإعدادات</string>
+    <string name="fav_label">المفضلة</string>
+    <string name="alerts_label">التنبيهات</string>
+
+    <!-- Main Activity -->
+    <string name="today">اليوم %s</string>
+    <string name="next_days">الأيام القادمة</string>
+    <string name="today_label">اليوم</string>
+    <string name="pressure">الضغط</string>
+    <string name="humidity">الرطوبة</string>
+    <string name="wind">الرياح</string>
+    <string name="grant_permissions_toast">يتبغى أن توافق على الأذونات</string>
+
+    <!-- Settings -->
+    <string name="location_dialog_title">الموقع</string>
+    <string name="temperature_dialog_title">درحة الحرارة</string>
+    <string name="wind_speed_dialog_title">سرعة الرياح</string>
+    <string name="language_dialog_title">اللغة</string>
+    <!-- Settings Default Values -->
+    <string name="location_default_value">نظام تحديد المواقع</string>
+    <string name="temp_default_value">سيليزيوس</string>
+    <string name="wind_speed_default_value">متر/ثانية</string>
+    <string name="lang_default_value">الإنجليزية</string>
+    <!-- Settings Values -->
+    <string name="pref_location_gps">نظام تحديد المواقع</string>
+    <string name="pref_location_map">الخرائط</string>
+    <string name="pref_temp_celsius">سيليزيوس</string>
+    <string name="pref_temp_kelvin">كلفن</string>
+    <string name="pref_temp_fahrenheit">فهرنهايت</string>
+    <string name="pref_wind_speed_meter">متر/ثانية</string>
+    <string name="pref_wind_speed_mile">ميل/ساعة</string>
+    <string name="pref_language_english">الإنجليزية</string>
+    <string name="pref_language_arabic">العربية</string>
+    <!-- Settings Arrays -->
+    <string-array name="pref_location">
+        <item>نظام تحديد المواقع</item>
+        <item>الخرائط</item>
+    </string-array>
+    <string-array name="pref_language">
+        <item>الإنجليزية</item>
+        <item>العربية</item>
+    </string-array>
+    <string-array name="pref_temp">
+        <item>سيليزيوس</item>
+        <item>كلفن</item>
+        <item>فهرنهايت</item>
+    </string-array>
+    <string-array name="pref_wind_speed">
+        <item>متر/ثانية</item>
+        <item>ميل/ساعة</item>
+    </string-array>
+</resources>
