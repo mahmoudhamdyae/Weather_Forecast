@@ -1,7 +1,7 @@
 package com.mahmoudhamdyae.weatherforecast.domain.repository
 
 import com.mahmoudhamdyae.weatherforecast.domain.model.WeatherInfo
-import com.mahmoudhamdyae.weatherforecast.domain.util.Resource
+import com.mahmoudhamdyae.weatherforecast.domain.util.ApiState
 
 interface Repository {
 
@@ -10,5 +10,5 @@ interface Repository {
         lon: Double,
         windSpeed: String,
         language: String
-    ): Resource<WeatherInfo>
+    ): ApiState<WeatherInfo>
 }

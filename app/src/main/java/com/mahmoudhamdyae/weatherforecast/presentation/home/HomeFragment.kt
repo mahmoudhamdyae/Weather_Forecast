@@ -20,6 +20,7 @@ import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
@@ -29,6 +30,7 @@ import com.mahmoudhamdyae.weatherforecast.presentation.map.LATITUDE
 import com.mahmoudhamdyae.weatherforecast.presentation.map.LONGITUDE
 import com.mahmoudhamdyae.weatherforecast.presentation.map.NAME
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.io.IOException
 import java.time.LocalDateTime
 import java.time.format.TextStyle
@@ -85,31 +87,29 @@ class HomeFragment : Fragment() {
             viewModel.getWeather(lat, lon, requireContext())
         }
 
-        viewModel.weather.observe(viewLifecycleOwner) {
-            if (!isNetworkAvailable(requireContext())) {
-                Toast.makeText(requireContext(), R.string.no_connection_toast, Toast.LENGTH_SHORT).show()
-            }
-            todayAdapter.submitList(it?.weatherDataPerDay?.get(0))
-            nextDaysAdapter.submitList(it?.daily)
-        }
-
-        viewModel.isFirstTime.observe(this) { isFirstTime ->
-            if (isFirstTime) {
-                showInitialSetupDialog()
-            }
-        }
-
         binding.swipe.setOnRefreshListener {
             if (lat != 0.0 && lon != 0.0) {
                 viewModel.getWeather(lat, lon, requireContext())
                 binding.swipe.isRefreshing = false
             }
         }
+
+        lifecycleScope.launch {
+            viewModel.uiState.collect {
+                if (!isNetworkAvailable(requireContext())) {
+                    Toast.makeText(requireContext(), R.string.no_connection_toast, Toast.LENGTH_SHORT).show()
+                }
+                todayAdapter.submitList(it.weather?.weatherDataPerDay?.get(0))
+                nextDaysAdapter.submitList(it.weather?.daily)
+
+                if (it.isFirstTime) {
+                    showInitialSetupDialog()
+                }
+            }
+        }
     }
 
     private fun showInitialSetupDialog() {
-
-
         val dialogFragment = InitialSetupDialogFragment()
         dialogFragment.isCancelable = false
         val transaction = activity?.supportFragmentManager?.beginTransaction()

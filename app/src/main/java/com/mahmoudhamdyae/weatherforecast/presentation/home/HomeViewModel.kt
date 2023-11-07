@@ -6,13 +6,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.preference.PreferenceManager
+import com.bumptech.glide.Glide.init
 import com.mahmoudhamdyae.weatherforecast.R
 import com.mahmoudhamdyae.weatherforecast.domain.model.WeatherInfo
 import com.mahmoudhamdyae.weatherforecast.domain.repository.PreferencesRepository
 import com.mahmoudhamdyae.weatherforecast.domain.repository.Repository
-import com.mahmoudhamdyae.weatherforecast.domain.util.Resource
+import com.mahmoudhamdyae.weatherforecast.domain.util.ApiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,21 +25,8 @@ class HomeViewModel @Inject constructor(
     private val repository: Repository
 ): ViewModel() {
 
-    private var _isFirstTime = MutableLiveData<Boolean>()
-    val isFirstTime: LiveData<Boolean>
-        get() = _isFirstTime
-
-    private var _weather = MutableLiveData<WeatherInfo?>(null)
-    val weather: LiveData<WeatherInfo?>
-        get() = _weather
-
-    private var _isLoading = MutableLiveData(true)
-    val isLoading: LiveData<Boolean>
-        get() = _isLoading
-
-    private var _error = MutableLiveData<String?>(null)
-    val error: LiveData<String?>
-        get() = _error
+    private var _uiState = MutableStateFlow(HomeUiState())
+    val uiState = _uiState.asStateFlow()
 
     init {
         viewModelScope.launch {
@@ -44,7 +34,7 @@ class HomeViewModel @Inject constructor(
                 if (it) {
                     // First Time
                     // Navigate to OnBoarding Screen
-                    _isFirstTime.postValue(true)
+                    _uiState.value = _uiState.value.copy(isFirstTime = true)
                     this.cancel()
                 } else {
                     this.cancel()
@@ -114,15 +104,19 @@ class HomeViewModel @Inject constructor(
                     language = lang
                 )
             ) {
-                is Resource.Success -> {
-                    _isLoading.postValue(false)
-                    _error.postValue(result.message)
-                    _weather.postValue(result.data)
+                is ApiState.Success -> {
+                    _uiState.value = _uiState.value.copy(
+                        isLoading = false,
+                        error = result.message,
+                        weather = result.data
+                    )
                 }
-                is Resource.Error -> {
-                    _isLoading.postValue(false)
-                    _error.postValue("Please, Check your network")
-                    _weather.postValue(null)
+                is ApiState.Failure -> {
+                    _uiState.value = _uiState.value.copy(
+                        isLoading = false,
+                        error = "Please, Check your network",
+                        weather = null
+                    )
                 }
             }
         }

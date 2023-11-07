@@ -4,7 +4,7 @@ import com.mahmoudhamdyae.weatherforecast.data.mappers.toWeatherInfo
 import com.mahmoudhamdyae.weatherforecast.data.remote.ApiService
 import com.mahmoudhamdyae.weatherforecast.domain.model.WeatherInfo
 import com.mahmoudhamdyae.weatherforecast.domain.repository.Repository
-import com.mahmoudhamdyae.weatherforecast.domain.util.Resource
+import com.mahmoudhamdyae.weatherforecast.domain.util.ApiState
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
@@ -16,9 +16,9 @@ class RepositoryImpl @Inject constructor(
         lon: Double,
         windSpeed: String,
         language: String
-    ): Resource<WeatherInfo> {
+    ): ApiState<WeatherInfo> {
         return try {
-            Resource.Success(
+            ApiState.Success(
                 data = apiService.getWeather(
                     lat = lat,
                     lon = lon,
@@ -28,7 +28,7 @@ class RepositoryImpl @Inject constructor(
             )
         } catch(e: Exception) {
             e.printStackTrace()
-            Resource.Error(e.message ?: "An unknown error occurred.")
+            ApiState.Failure(e.message ?: "An unknown error occurred.")
         }
     }
 }
