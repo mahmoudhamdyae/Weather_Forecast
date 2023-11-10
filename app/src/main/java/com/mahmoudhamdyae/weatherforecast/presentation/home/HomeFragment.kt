@@ -3,7 +3,7 @@ package com.mahmoudhamdyae.weatherforecast.presentation.home
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.IntentSender
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
@@ -11,6 +11,7 @@ import android.location.LocationManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,9 +22,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.google.android.gms.common.api.ResolvableApiException
-import com.google.android.gms.location.*
-import com.google.android.gms.tasks.Task
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
 import com.mahmoudhamdyae.weatherforecast.R
 import com.mahmoudhamdyae.weatherforecast.data.local.AppDatabase
 import com.mahmoudhamdyae.weatherforecast.data.local.LocalDataSourceImpl
@@ -34,6 +34,8 @@ import com.mahmoudhamdyae.weatherforecast.databinding.FragmentHomeBinding
 import com.mahmoudhamdyae.weatherforecast.presentation.map.LATITUDE
 import com.mahmoudhamdyae.weatherforecast.presentation.map.LONGITUDE
 import com.mahmoudhamdyae.weatherforecast.presentation.map.NAME
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import java.io.IOException
 import java.time.LocalDateTime
@@ -70,6 +72,11 @@ class HomeFragment : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getLocation()
     }
 
     @SuppressLint("SetTextI18n")
@@ -120,9 +127,12 @@ class HomeFragment : Fragment() {
             }
         }
         lifecycleScope.launch {
-            viewModel.isFirstTime.collect {
+            viewModel.isFirstTime.take(1).collect {
                 if (it) {
                     showInitialSetupDialog()
+                    this.cancel()
+                } else {
+                    this.cancel()
                 }
             }
         }
@@ -149,35 +159,12 @@ class HomeFragment : Fragment() {
             if (isLocationEnabled()) {
                 requestNetworkLocalData()
             } else {
-                openLocationDialog(requireContext())
+                Toast.makeText(requireContext(), "Turn on Location", Toast.LENGTH_SHORT).show()
+                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                startActivity(intent)
             }
         } else {
             requestLocationPermissions()
-        }
-    }
-
-    private fun openLocationDialog(context: Context) {
-        val locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 10000).apply {
-            setGranularity(Granularity.GRANULARITY_PERMISSION_LEVEL)
-            setWaitForAccurateLocation(true)
-        }.build()
-
-        val builder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
-        val client: SettingsClient = LocationServices.getSettingsClient(context)
-        val task: Task<LocationSettingsResponse> = client.checkLocationSettings(builder.build())
-
-        task.addOnFailureListener { exception ->
-            if (exception is ResolvableApiException) {
-                // Location settings are not satisfied, but this can be fixed
-                // by showing the user a dialog.
-                try {
-                    // Show the dialog by calling startResolutionForResult(),
-                    // and check the result in onActivityResult().
-                    exception.startResolutionForResult(requireActivity(), 100)
-                } catch (sendEx: IntentSender.SendIntentException) {
-                    // Ignore the error.
-                }
-            }
         }
     }
 

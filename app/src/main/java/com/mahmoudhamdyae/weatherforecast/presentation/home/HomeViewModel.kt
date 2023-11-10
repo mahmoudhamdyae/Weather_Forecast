@@ -12,6 +12,7 @@ import com.mahmoudhamdyae.weatherforecast.domain.util.ApiState
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 
 @Suppress("UNCHECKED_CAST")
@@ -37,7 +38,7 @@ class HomeViewModel (
 
     init {
         viewModelScope.launch {
-            preferencesRepository.isFirstTime.collect {
+            preferencesRepository.isFirstTime.take(1).collect {
                 if (it) {
                     // First Time
                     _isFirstTime.value = true
