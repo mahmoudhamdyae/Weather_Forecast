@@ -28,7 +28,6 @@ import com.mahmoudhamdyae.weatherforecast.domain.model.Alarm
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 
-
 class AlertsFragment : Fragment() {
 
     private lateinit var binding: FragmentAlertsBinding

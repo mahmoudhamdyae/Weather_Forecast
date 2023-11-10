@@ -17,6 +17,7 @@ class AlarmSchedulerImpl(
     override fun schedule(alarmItem: AlarmItem) {
         val intent = Intent(context, AlarmReceiver::class.java).apply {
             putExtra("EXTRA_MESSAGE", alarmItem.message)
+            putExtra("EXTRA_TYPE", alarmItem.alarmType.id)
         }
         val alarmTime = alarmItem.alarmTime.atZone(ZoneId.systemDefault()).toEpochSecond() * 1000L
         alarmManager.setExactAndAllowWhileIdle(
