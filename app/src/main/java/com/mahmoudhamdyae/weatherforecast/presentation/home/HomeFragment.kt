@@ -117,7 +117,11 @@ class HomeFragment : Fragment() {
                 todayAdapter.submitList(it.weather?.weatherDataPerDay?.get(0))
                 nextDaysAdapter.submitList(it.weather?.daily)
 
-                if (it.isFirstTime) {
+            }
+        }
+        lifecycleScope.launch {
+            viewModel.isFirstTime.collect {
+                if (it) {
                     showInitialSetupDialog()
                 }
             }

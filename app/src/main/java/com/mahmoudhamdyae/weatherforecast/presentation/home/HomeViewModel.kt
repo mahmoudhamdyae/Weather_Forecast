@@ -32,13 +32,15 @@ class HomeViewModel (
     private var _uiState = MutableStateFlow(HomeUiState())
     val uiState = _uiState.asStateFlow()
 
+    private var _isFirstTime = MutableStateFlow(false)
+    val isFirstTime = _isFirstTime.asStateFlow()
+
     init {
         viewModelScope.launch {
             preferencesRepository.isFirstTime.collect {
                 if (it) {
                     // First Time
-                    // Navigate to OnBoarding Screen
-                    _uiState.value = _uiState.value.copy(isFirstTime = true)
+                    _isFirstTime.value = true
                     this.cancel()
                 } else {
                     this.cancel()
