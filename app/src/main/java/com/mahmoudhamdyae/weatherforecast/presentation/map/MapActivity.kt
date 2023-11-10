@@ -20,6 +20,7 @@ import com.mahmoudhamdyae.weatherforecast.data.local.LocalDataSourceImpl
 import com.mahmoudhamdyae.weatherforecast.data.remote.RemoteDataSourceImpl
 import com.mahmoudhamdyae.weatherforecast.data.repository.RepositoryImpl
 import com.mahmoudhamdyae.weatherforecast.databinding.ActivityMapBinding
+import com.mahmoudhamdyae.weatherforecast.domain.model.Location
 import java.io.IOException
 import java.util.*
 
@@ -59,8 +60,13 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
 
         binding.addThisLocationButton.setOnClickListener {
-//            viewModel.addFav(Location(
-//            ))
+            viewModel.addFav(
+                Location(
+                    lat!!,
+                    lon!!,
+                    name!!
+                )
+            )
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra(LATITUDE, lat)
             intent.putExtra(LONGITUDE, lon)
