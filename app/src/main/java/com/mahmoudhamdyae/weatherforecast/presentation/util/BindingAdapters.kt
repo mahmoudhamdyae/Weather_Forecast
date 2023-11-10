@@ -83,3 +83,7 @@ fun bindVisibility(view: View, list: List<Any>) {
         view.visibility = View.GONE
     }
 }
+
+@BindingAdapter("bindTime")
+fun bindTime(view: TextView, time: String) {
+}

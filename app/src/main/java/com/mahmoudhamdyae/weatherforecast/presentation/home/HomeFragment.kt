@@ -236,6 +236,7 @@ class HomeFragment : Fragment() {
         Toast.makeText(requireContext(), getString(R.string.grant_permissions_toast), Toast.LENGTH_SHORT).show()
     }
 
+    @SuppressLint("MissingPermission")
     private fun isNetworkAvailable(context: Context): Boolean {
         val connectivityManager =
             (context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)

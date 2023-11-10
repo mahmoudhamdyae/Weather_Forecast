@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -112,7 +111,7 @@ class AlertsFragment : Fragment() {
 
     private fun showTimePicker() {
         val calender = Calendar.getInstance()
-        val currentHour = calender.get(Calendar.HOUR)
+        val currentHour = calender.get(Calendar.HOUR_OF_DAY)
         val currentMinute = calender.get(Calendar.MINUTE)
 
         val timePickerDialog = TimePickerDialog(
@@ -193,7 +192,6 @@ class AlertsFragment : Fragment() {
             message = message,
             alarmType = alarmType
         )
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
         alarmScheduler.schedule(alarmItem)
     }
 }
