@@ -47,7 +47,7 @@ class AlertsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, com.mahmoudhamdyae.weatherforecast.R.layout.fragment_alerts, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_alerts, container, false)
         return binding.root
     }
 
@@ -66,12 +66,12 @@ class AlertsFragment : Fragment() {
 
     private fun showDelDialog(alarm: Alarm) {
         MaterialAlertDialogBuilder(requireContext())
-            .setMessage(com.mahmoudhamdyae.weatherforecast.R.string.dialog_del_alarm)
-            .setPositiveButton(com.mahmoudhamdyae.weatherforecast.R.string.dialog_del_ok) { dialog, _ ->
+            .setMessage(R.string.dialog_del_alarm)
+            .setPositiveButton(R.string.dialog_del_ok) { dialog, _ ->
                 viewModel.delAlarm(alarm)
                 dialog.dismiss()
             }
-            .setNegativeButton(com.mahmoudhamdyae.weatherforecast.R.string.dialog_del_cancel) { dialog, _ ->
+            .setNegativeButton(R.string.dialog_del_cancel) { dialog, _ ->
                 // User cancelled the dialog
                 dialog.dismiss()
             }.show()
