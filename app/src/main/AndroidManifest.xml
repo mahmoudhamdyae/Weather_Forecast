@@ -21,6 +21,11 @@
         android:theme="@style/Theme.WeatherForecast"
         tools:targetApi="34">
 
+        <receiver
+            android:name=".alarm.AlarmReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
