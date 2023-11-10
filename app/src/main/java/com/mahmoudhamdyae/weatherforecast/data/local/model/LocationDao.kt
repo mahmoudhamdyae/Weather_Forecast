@@ -2,11 +2,12 @@ package com.mahmoudhamdyae.weatherforecast.data.local.model
 
 import androidx.room.*
 import com.mahmoudhamdyae.weatherforecast.domain.model.Location
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface LocationDao {
     @Query("SELECT * FROM location")
-    suspend fun getLocations(): List<Location>
+    suspend fun getLocations(): Flow<List<Location>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertLocation(location: Location)

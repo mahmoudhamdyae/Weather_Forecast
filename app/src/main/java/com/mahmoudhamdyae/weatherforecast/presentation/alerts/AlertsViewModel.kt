@@ -1,12 +1,11 @@
 package com.mahmoudhamdyae.weatherforecast.presentation.alerts
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mahmoudhamdyae.weatherforecast.domain.model.Alarm
-import com.mahmoudhamdyae.weatherforecast.domain.model.Location
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -14,9 +13,8 @@ import javax.inject.Inject
 class AlertsViewModel @Inject constructor(
 ): ViewModel() {
 
-    private var _alarms = MutableLiveData(listOf<Alarm>())
-    val alarms: LiveData<List<Alarm>>
-        get() = _alarms
+    private var _alarms = MutableStateFlow(listOf<Alarm>())
+    val alarms = _alarms.asStateFlow()
 
     init {
         getAlarms()
@@ -24,7 +22,7 @@ class AlertsViewModel @Inject constructor(
 
     private fun getAlarms() {
         viewModelScope.launch {
-            _alarms.postValue(
+            _alarms.value =
                 listOf(
                     Alarm(
                         fromDay = 23,
@@ -40,7 +38,6 @@ class AlertsViewModel @Inject constructor(
                         isAlarm = true
                     )
                 )
-            )
         }
     }
 
