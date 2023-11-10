@@ -1,12 +1,17 @@
 package com.mahmoudhamdyae.weatherforecast.presentation.alerts
 
 import android.app.DatePickerDialog
+import android.app.Dialog
 import android.app.TimePickerDialog
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -23,6 +28,7 @@ import com.mahmoudhamdyae.weatherforecast.domain.model.Alarm
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 
+
 class AlertsFragment : Fragment() {
 
     private lateinit var binding: FragmentAlertsBinding
@@ -35,14 +41,13 @@ class AlertsFragment : Fragment() {
     private var year: Int? = null
     private var month: Int? = null
     private var day: Int? = null
-    private lateinit var alarmType: AlarmType
-    private lateinit var message: String
+    private var alarmType = AlarmType.ALARM
 
             override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_alerts, container, false)
+        binding = DataBindingUtil.inflate(inflater, com.mahmoudhamdyae.weatherforecast.R.layout.fragment_alerts, container, false)
         return binding.root
     }
 
@@ -61,12 +66,12 @@ class AlertsFragment : Fragment() {
 
     private fun showDelDialog(alarm: Alarm) {
         MaterialAlertDialogBuilder(requireContext())
-            .setMessage(R.string.dialog_del_alarm)
-            .setPositiveButton(R.string.dialog_del_ok) { dialog, _ ->
+            .setMessage(com.mahmoudhamdyae.weatherforecast.R.string.dialog_del_alarm)
+            .setPositiveButton(com.mahmoudhamdyae.weatherforecast.R.string.dialog_del_ok) { dialog, _ ->
                 viewModel.delAlarm(alarm)
                 dialog.dismiss()
             }
-            .setNegativeButton(R.string.dialog_del_cancel) { dialog, _ ->
+            .setNegativeButton(com.mahmoudhamdyae.weatherforecast.R.string.dialog_del_cancel) { dialog, _ ->
                 // User cancelled the dialog
                 dialog.dismiss()
             }.show()
@@ -114,9 +119,10 @@ class AlertsFragment : Fragment() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
         builder
             .setPositiveButton(getString(R.string.ok)) { _, _ ->
-                if (::alarmType.isInitialized) {
-                    showLabelDialog()
-                }
+                showLabelDialog()
+            }
+            .setNegativeButton(getString(R.string.label_dialog_cancel)) { dialog, _ ->
+                dialog.dismiss()
             }
             .setSingleChoiceItems(
                 arrayOf(
@@ -131,24 +137,41 @@ class AlertsFragment : Fragment() {
                 }
             }
 
-        val dialog: AlertDialog = builder.create()
-        dialog.show()
+        builder.create().apply {
+            setCancelable(false)
+            show()
+        }
     }
 
     private fun showLabelDialog() {
-        val messageDialog = MessageDialog(::setAlarm)
-        messageDialog.isCancelable = false
-        messageDialog.show(requireActivity().supportFragmentManager, "label")
+
+        val dialog = Dialog(requireActivity())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.dialog_add_message)
+
+        dialog.findViewById<Button>(R.id.ok_button).setOnClickListener {
+            val message = dialog.findViewById<EditText>(R.id.label).text.toString()
+            dialog.dismiss()
+            setAlarm(message)
+        }
+
+        dialog.findViewById<Button>(R.id.cancel_button).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
-    private fun setAlarm() {
+    private fun setAlarm(message: String) {
         val alarmScheduler : AlarmScheduler = AlarmSchedulerImpl(requireContext())
         val localDateTime = LocalDateTime.of(year!!, month!!, day!!, hourOfDay!!, minute!!)
         val alarmItem = AlarmItem(
             alarmTime = localDateTime,
-            message = "message",
+            message = message,
             alarmType = alarmType
         )
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
         alarmScheduler.schedule(alarmItem)
     }
 }

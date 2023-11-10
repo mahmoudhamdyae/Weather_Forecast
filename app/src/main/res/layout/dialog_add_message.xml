@@ -6,16 +6,35 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:hint="@string/label_dialog_edit_text_hint"
         android:id="@+id/label"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:hint="@string/label_dialog_edit_text_hint"
+        android:inputType="text"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:inputType="text"
         tools:ignore="Autofill,LabelFor" />
+
+    <Button
+        android:id="@+id/ok_button"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ok"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/label" />
+
+    <Button
+        android:id="@+id/cancel_button"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_del_cancel"
+        app:layout_constraintBottom_toBottomOf="@id/ok_button"
+        app:layout_constraintEnd_toStartOf="@id/ok_button"
+        app:layout_constraintTop_toTopOf="@id/ok_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
