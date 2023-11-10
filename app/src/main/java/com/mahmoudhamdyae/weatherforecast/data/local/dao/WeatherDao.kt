@@ -1,18 +1,20 @@
 package com.mahmoudhamdyae.weatherforecast.data.local.dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.mahmoudhamdyae.weatherforecast.domain.model.WeatherInfo
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface WeatherDao {
 
     @Query("SELECT * FROM weatherInfo")
-    fun getWeather(): Flow<WeatherInfo>
+    suspend fun getWeather(): List<WeatherInfo>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWeather(weather: WeatherInfo)
 
-    @Delete
-    suspend fun delete(weather: WeatherInfo)
+    @Query("DELETE FROM weatherInfo")
+    suspend fun delete()
 }

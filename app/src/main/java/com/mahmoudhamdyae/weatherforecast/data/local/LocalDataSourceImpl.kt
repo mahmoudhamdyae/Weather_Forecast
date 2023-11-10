@@ -46,7 +46,7 @@ class LocalDataSourceImpl(
         database.alarmDao().delete(alarm)
     }
 
-    override fun getWeather(): Flow<WeatherInfo> {
+    override suspend fun getWeather(): List<WeatherInfo> {
         return database.weatherDao().getWeather()
     }
 
@@ -54,7 +54,7 @@ class LocalDataSourceImpl(
         database.weatherDao().insertWeather(weather)
     }
 
-    override suspend fun deleteWeather(weather: WeatherInfo) {
-        database.weatherDao().delete(weather)
+    override suspend fun deleteWeather() {
+        database.weatherDao().delete()
     }
 }

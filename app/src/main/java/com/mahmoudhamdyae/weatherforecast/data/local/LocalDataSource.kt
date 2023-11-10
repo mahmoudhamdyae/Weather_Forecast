@@ -15,7 +15,7 @@ interface LocalDataSource {
     suspend fun insertAlarm(alarm: Alarm)
     suspend fun deleteAlarm(alarm: Alarm)
 
-    fun getWeather(): Flow<WeatherInfo>
+    suspend fun getWeather(): List<WeatherInfo>
     suspend fun insertWeather(weather: WeatherInfo)
-    suspend fun deleteWeather(weather: WeatherInfo)
+    suspend fun deleteWeather()
 }

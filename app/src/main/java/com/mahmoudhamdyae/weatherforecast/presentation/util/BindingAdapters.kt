@@ -11,21 +11,20 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.mahmoudhamdyae.weatherforecast.R
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 @BindingAdapter("time")
 fun getTodayTime(view: TextView, time: LocalDateTime?) {
-    val formattedTime = time?.format(
-        DateTimeFormatter.ofPattern("HH:mm")
-    )
-    view.text = view.context.getString(R.string.today, formattedTime)
+    time?.let {
+//        val formattedTime = it.format(DateTimeFormatter.ofPattern("HH:mm"))
+//        view.text = view.context.getString(R.string.today, formattedTime)
+    }
 }
 
 @BindingAdapter("formattedTime")
 fun getFormattedTime(view: TextView, time: LocalDateTime?) {
-    view.text = time?.format(
-        DateTimeFormatter.ofPattern("HH:mm")
-    )
+//    view.text = time?.format(
+//        DateTimeFormatter.ofPattern("HH:mm")
+//    )
 }
 
 @BindingAdapter("imageUrl")
