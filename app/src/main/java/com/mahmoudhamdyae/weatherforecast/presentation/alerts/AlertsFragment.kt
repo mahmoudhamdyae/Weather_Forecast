@@ -10,9 +10,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mahmoudhamdyae.weatherforecast.R
+import com.mahmoudhamdyae.weatherforecast.alarm.AlarmItem
+import com.mahmoudhamdyae.weatherforecast.alarm.AlarmScheduler
+import com.mahmoudhamdyae.weatherforecast.alarm.AlarmSchedulerImpl
 import com.mahmoudhamdyae.weatherforecast.databinding.FragmentAlertsBinding
 import com.mahmoudhamdyae.weatherforecast.domain.model.Alarm
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
 
 class AlertsFragment : Fragment() {
 
@@ -46,7 +50,8 @@ class AlertsFragment : Fragment() {
         MaterialAlertDialogBuilder(requireContext())
             .setMessage(R.string.dialog_del_alarm)
             .setPositiveButton(R.string.dialog_del_ok) { dialog, _ ->
-                viewModel.delAlarm(alarm)
+//                viewModel.delAlarm(alarm)
+                setAlarm()
                 dialog.dismiss()
             }
             .setNegativeButton(R.string.dialog_del_cancel) { dialog, _ ->
@@ -57,5 +62,17 @@ class AlertsFragment : Fragment() {
 
     private fun addAlarm() {
         //
+    }
+
+    private fun setAlarm() {
+        val alarmScheduler : AlarmScheduler = AlarmSchedulerImpl(requireContext())
+        val alarmItem = AlarmItem(
+            alarmTime = LocalDateTime.now().plusSeconds(
+//                secondText.toLong()
+                0L
+            ),
+            message = "messageText"
+        )
+        alarmScheduler.schedule(alarmItem)
     }
 }
