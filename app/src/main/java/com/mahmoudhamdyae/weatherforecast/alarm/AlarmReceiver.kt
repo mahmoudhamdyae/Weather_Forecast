@@ -11,7 +11,10 @@ class AlarmReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
 
-        val message = intent?.getStringExtra("EXTRA_MESSAGE") ?: return
+        var message = intent?.getStringExtra("EXTRA_MESSAGE") ?: return
+        if (message == "" && context != null) {
+            message = context.getString(R.string.app_name)
+        }
         val alarmTypeId = intent.getIntExtra("EXTRA_TYPE", 0)
         val alarmType = if (alarmTypeId == 0) AlarmType.ALARM else AlarmType.NOTIFICATION
         val channelId = "alarm_id"

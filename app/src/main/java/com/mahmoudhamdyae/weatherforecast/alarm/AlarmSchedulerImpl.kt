@@ -16,11 +16,12 @@ class AlarmSchedulerImpl(
     @SuppressLint("MissingPermission")
     override fun schedule(alarmItem: AlarmItem) {
         val intent = Intent(context, AlarmReceiver::class.java).apply {
+            addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
             putExtra("EXTRA_MESSAGE", alarmItem.message)
             putExtra("EXTRA_TYPE", alarmItem.alarmType.id)
         }
         val alarmTime = alarmItem.alarmTime.atZone(ZoneId.systemDefault()).toEpochSecond() * 1000L
-        alarmManager.setExactAndAllowWhileIdle(
+        alarmManager?.setExactAndAllowWhileIdle(
             AlarmManager.RTC_WAKEUP,
             alarmTime,
             PendingIntent.getBroadcast(
@@ -33,7 +34,7 @@ class AlarmSchedulerImpl(
     }
 
     override fun cancel(alarmItem: AlarmItem) {
-        alarmManager.cancel(
+        alarmManager?.cancel(
             PendingIntent.getBroadcast(
                 context,
                 alarmItem.hashCode(),
