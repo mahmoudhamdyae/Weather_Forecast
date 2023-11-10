@@ -35,6 +35,14 @@
     <string name="empty_alarm">لا يوجد منبهات حاليا</string>
     <!-- Del Dialog -->
     <string name="dialog_del_alarm">هل أنت متأكد من حذف هذا التنبيه؟</string>
+    <!-- Alarm or Notification Dialog -->
+    <string name="alarm_or_notifications_dialog_alarm">تنبيه</string>
+    <string name="alarm_or_notifications_dialog_notification">إشعار</string>
+    <!-- Label Dialog -->
+    <string name="label_dialog_title">تعيين رسالة</string>
+    <string name="label_dialog_edit_text_hint">الرسالة</string>
+    <string name="label_dialog_ok">حسنا</string>
+    <string name="label_dialog_cancel">Cancel</string>
 
     <!-- Map Activity -->
     <string name="add_this_location_button">أضف هذا الموقع</string>
