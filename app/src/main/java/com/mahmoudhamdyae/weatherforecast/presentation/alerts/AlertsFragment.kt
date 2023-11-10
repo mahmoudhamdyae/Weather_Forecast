@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mahmoudhamdyae.weatherforecast.R
 import com.mahmoudhamdyae.weatherforecast.databinding.FragmentAlertsBinding
 import com.mahmoudhamdyae.weatherforecast.domain.model.Alarm
+import kotlinx.coroutines.launch
 
 class AlertsFragment : Fragment() {
 
@@ -35,12 +37,9 @@ class AlertsFragment : Fragment() {
         binding.lifecycleOwner = this
         adapter = AlertsAdapter(::showDelDialog)
         binding.alarmAdapter = adapter
+        binding.addFab.setOnClickListener { addAlarm() }
 
-        viewModel.alarms.observe(viewLifecycleOwner, adapter::submitList)
-
-        binding.addFab.setOnClickListener {
-            addAlarm()
-        }
+        lifecycleScope.launch { viewModel.alarms.collect(adapter::submitList) }
     }
 
     private fun showDelDialog(alarm: Alarm) {

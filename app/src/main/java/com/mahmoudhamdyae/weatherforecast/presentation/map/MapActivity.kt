@@ -15,8 +15,11 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.mahmoudhamdyae.weatherforecast.MainActivity
 import com.mahmoudhamdyae.weatherforecast.R
+import com.mahmoudhamdyae.weatherforecast.data.local.AppDatabase
+import com.mahmoudhamdyae.weatherforecast.data.local.LocalDataSourceImpl
+import com.mahmoudhamdyae.weatherforecast.data.remote.RemoteDataSourceImpl
+import com.mahmoudhamdyae.weatherforecast.data.repository.RepositoryImpl
 import com.mahmoudhamdyae.weatherforecast.databinding.ActivityMapBinding
-import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
 import java.util.*
 
@@ -24,7 +27,6 @@ const val LATITUDE: String = "LATITUDE"
 const val LONGITUDE: String = "LONGITUDE"
 const val NAME: String = "NAME"
 
-@AndroidEntryPoint
 class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var binding: ActivityMapBinding
@@ -34,11 +36,21 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     private var lon: Double? = null
     private var name: String? = null
 
+    private val viewModel: MapViewModel by lazy {
+        val factory = MapViewModelFactory(
+            RepositoryImpl.getRepository(
+                RemoteDataSourceImpl.getInstance(),
+                LocalDataSourceImpl.getInstance(
+                    AppDatabase.getDatabase(this).locationDao()
+                )
+            )
+        )
+        ViewModelProvider(this, factory)[MapViewModel::class.java]
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_map)
-
-        val viewModel: MapViewModel = ViewModelProvider(this)[MapViewModel::class.java]
         binding.lifecycleOwner = this
 
         geoCoder = Geocoder(this, Locale.getDefault())
@@ -47,6 +59,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
 
         binding.addThisLocationButton.setOnClickListener {
+//            viewModel.addFav(Location(
+//            ))
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra(LATITUDE, lat)
             intent.putExtra(LONGITUDE, lon)

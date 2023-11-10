@@ -1,21 +1,31 @@
 package com.mahmoudhamdyae.weatherforecast.presentation.map
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.mahmoudhamdyae.weatherforecast.data.local.model.LocationDao
+import com.mahmoudhamdyae.weatherforecast.data.local.LocationDao
 import com.mahmoudhamdyae.weatherforecast.domain.model.Location
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.mahmoudhamdyae.weatherforecast.domain.repository.PreferencesRepository
+import com.mahmoudhamdyae.weatherforecast.domain.repository.Repository
+import com.mahmoudhamdyae.weatherforecast.presentation.home.HomeViewModel
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class MapViewModel @Inject constructor(
-    private val dao: LocationDao
+@Suppress("UNCHECKED_CAST")
+class MapViewModelFactory(
+    private val repository: Repository
+): ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return MapViewModel(repository) as T
+    }
+}
+
+class MapViewModel (
+    private val repository: Repository
 ): ViewModel() {
 
     fun addFav(location: Location) {
         viewModelScope.launch {
-            dao.insertLocation(location)
+            repository.insertLocation(location)
         }
     }
 }

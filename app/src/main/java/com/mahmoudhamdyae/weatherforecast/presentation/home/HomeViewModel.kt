@@ -1,26 +1,30 @@
 package com.mahmoudhamdyae.weatherforecast.presentation.home
 
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.preference.PreferenceManager
-import com.bumptech.glide.Glide.init
 import com.mahmoudhamdyae.weatherforecast.R
-import com.mahmoudhamdyae.weatherforecast.domain.model.WeatherInfo
 import com.mahmoudhamdyae.weatherforecast.domain.repository.PreferencesRepository
 import com.mahmoudhamdyae.weatherforecast.domain.repository.Repository
 import com.mahmoudhamdyae.weatherforecast.domain.util.ApiState
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class HomeViewModel @Inject constructor(
+@Suppress("UNCHECKED_CAST")
+class HomeViewModelFactory(
+    private val preferencesRepository: PreferencesRepository,
+    private val repository: Repository
+): ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return HomeViewModel(preferencesRepository, repository) as T
+    }
+}
+
+class HomeViewModel (
     preferencesRepository: PreferencesRepository,
     private val repository: Repository
 ): ViewModel() {

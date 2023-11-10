@@ -19,24 +19,28 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
 import com.mahmoudhamdyae.weatherforecast.R
+import com.mahmoudhamdyae.weatherforecast.data.local.AppDatabase
+import com.mahmoudhamdyae.weatherforecast.data.local.LocalDataSourceImpl
+import com.mahmoudhamdyae.weatherforecast.data.remote.ApiService
+import com.mahmoudhamdyae.weatherforecast.data.remote.RemoteDataSourceImpl
+import com.mahmoudhamdyae.weatherforecast.data.repository.PreferencesRepositoryImpl
+import com.mahmoudhamdyae.weatherforecast.data.repository.RepositoryImpl
 import com.mahmoudhamdyae.weatherforecast.databinding.FragmentHomeBinding
 import com.mahmoudhamdyae.weatherforecast.presentation.map.LATITUDE
 import com.mahmoudhamdyae.weatherforecast.presentation.map.LONGITUDE
 import com.mahmoudhamdyae.weatherforecast.presentation.map.NAME
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.io.IOException
 import java.time.LocalDateTime
 import java.time.format.TextStyle
 import java.util.*
 
-@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
@@ -47,6 +51,19 @@ class HomeFragment : Fragment() {
     private var lat: Double = 0.0
     private var lon: Double = 0.0
     private var name: String? = null
+
+    private val viewModel: HomeViewModel by lazy {
+        val factory = HomeViewModelFactory(
+            PreferencesRepositoryImpl.getPreferences(requireContext()),
+            RepositoryImpl.getRepository(
+                RemoteDataSourceImpl.getInstance(),
+                LocalDataSourceImpl.getInstance(
+                    AppDatabase.getDatabase(requireContext()).locationDao()
+                )
+            )
+        )
+        ViewModelProvider(this, factory)[HomeViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,7 +77,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val viewModel: HomeViewModel by viewModels()
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         todayAdapter = TodayAdapter()

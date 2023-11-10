@@ -3,15 +3,11 @@ package com.mahmoudhamdyae.weatherforecast.presentation.alerts
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mahmoudhamdyae.weatherforecast.domain.model.Alarm
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class AlertsViewModel @Inject constructor(
-): ViewModel() {
+class AlertsViewModel: ViewModel() {
 
     private var _alarms = MutableStateFlow(listOf<Alarm>())
     val alarms = _alarms.asStateFlow()
