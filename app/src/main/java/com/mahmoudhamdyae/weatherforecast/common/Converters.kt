@@ -6,43 +6,7 @@ import com.google.gson.reflect.TypeToken
 import com.mahmoudhamdyae.weatherforecast.domain.model.WeatherDaily
 import com.mahmoudhamdyae.weatherforecast.domain.model.WeatherData
 
-//@ProvidedTypeConverter
 object Converters {
-
-//    @field:TypeConverters(Converters::class)
-//    var gson = Gson()
-
-    // Convert List
-
-//    @TypeConverter
-//    fun stringToList(data: String?): List<WeatherDaily?>? {
-//        if (data == null) {
-//            return Collections.emptyList()
-//        }
-//        val listType = object : TypeToken<List<WeatherDaily?>?>() {}.type
-//        return gson.fromJson<List<WeatherDaily?>>(data, listType)
-//    }
-//
-//    @TypeConverter
-//    fun listToString(someObjects: List<WeatherDaily?>?): String? {
-//        return gson.toJson(someObjects)
-//    }
-
-    // Convert Maps
-
-//    @TypeConverter
-//    fun stringToMap(data: String?): Map<Int, List<WeatherData>> {
-//        if (data == null) {
-//            return Collections.emptyMap()
-//        }
-//        val listType = object : TypeToken<Map<Int, List<WeatherData>>>() {}.type
-//        return gson.fromJson(data, listType)
-//    }
-//
-//    @TypeConverter
-//    fun mapToString(someObjects: Map<Int, List<WeatherData>>): String? {
-//        return gson.toJson(someObjects)
-//    }
 
     // List
 
