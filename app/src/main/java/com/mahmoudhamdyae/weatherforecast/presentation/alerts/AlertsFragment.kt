@@ -93,7 +93,8 @@ class AlertsFragment : Fragment() {
                 currentMonth,
                 currentDay
             )
-            datePickerDialog.show()
+        datePickerDialog.datePicker.minDate = calender.timeInMillis
+        datePickerDialog.show()
     }
 
     private fun showTimePicker() {
@@ -143,7 +144,6 @@ class AlertsFragment : Fragment() {
     }
 
     private fun showLabelDialog() {
-
         val dialog = Dialog(requireActivity())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(false)
