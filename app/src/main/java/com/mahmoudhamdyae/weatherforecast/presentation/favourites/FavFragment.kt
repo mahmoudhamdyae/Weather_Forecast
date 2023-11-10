@@ -31,7 +31,7 @@ class FavFragment : Fragment() {
             RepositoryImpl.getRepository(
                 RemoteDataSourceImpl.getInstance(),
                 LocalDataSourceImpl.getInstance(
-                    AppDatabase.getDatabase(requireContext()).locationDao()
+                    AppDatabase.getDatabase(requireContext())
                 )
             )
         )

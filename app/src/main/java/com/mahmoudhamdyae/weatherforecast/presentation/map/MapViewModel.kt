@@ -3,11 +3,8 @@ package com.mahmoudhamdyae.weatherforecast.presentation.map
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.mahmoudhamdyae.weatherforecast.data.local.LocationDao
 import com.mahmoudhamdyae.weatherforecast.domain.model.Location
-import com.mahmoudhamdyae.weatherforecast.domain.repository.PreferencesRepository
 import com.mahmoudhamdyae.weatherforecast.domain.repository.Repository
-import com.mahmoudhamdyae.weatherforecast.presentation.home.HomeViewModel
 import kotlinx.coroutines.launch
 
 @Suppress("UNCHECKED_CAST")

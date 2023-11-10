@@ -7,7 +7,7 @@
 
         <variable
             name="alarm"
-            type="com.mahmoudhamdyae.weatherforecast.domain.model.Alarm" />
+            type="com.mahmoudhamdyae.weatherforecast.data.local.model.Alarm" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:text="@{alarm.fromHour + `:` + alarm.fromMin}"
+                android:text="@{alarm.hour + `:` + alarm.minute}"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -38,48 +38,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="8dp"
-                android:text="@{alarm.fromDay + ` ` + alarm.fromMonth}"
+                android:text="@{alarm.day + ` ` + alarm.month}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/from_time"
                 app:layout_constraintStart_toStartOf="@id/from_time"
                 app:layout_constraintTop_toBottomOf="@+id/from_time"
-                tools:text="24 2" />
-
-            <TextView
-                android:id="@+id/dash"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="8dp"
-                android:text=" - "
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/from_time"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="HardcodedText" />
-
-            <TextView
-                android:id="@+id/to_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="@{alarm.fromHour + `:` + alarm.fromMin}"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@id/dash"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="2:52" />
-
-            <TextView
-                android:id="@+id/to_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="8dp"
-                android:text="@{alarm.fromDay + ` ` + alarm.fromMonth}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/to_time"
-                app:layout_constraintStart_toStartOf="@id/to_time"
-                app:layout_constraintTop_toBottomOf="@+id/to_time"
                 tools:text="24 2" />
 
             <ImageView

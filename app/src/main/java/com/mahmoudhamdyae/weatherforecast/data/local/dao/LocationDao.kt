@@ -1,4 +1,4 @@
-package com.mahmoudhamdyae.weatherforecast.data.local
+package com.mahmoudhamdyae.weatherforecast.data.local.dao
 
 import androidx.room.*
 import com.mahmoudhamdyae.weatherforecast.domain.model.Location

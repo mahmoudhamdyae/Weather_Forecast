@@ -27,7 +27,6 @@ import com.google.android.gms.tasks.Task
 import com.mahmoudhamdyae.weatherforecast.R
 import com.mahmoudhamdyae.weatherforecast.data.local.AppDatabase
 import com.mahmoudhamdyae.weatherforecast.data.local.LocalDataSourceImpl
-import com.mahmoudhamdyae.weatherforecast.data.remote.ApiService
 import com.mahmoudhamdyae.weatherforecast.data.remote.RemoteDataSourceImpl
 import com.mahmoudhamdyae.weatherforecast.data.repository.PreferencesRepositoryImpl
 import com.mahmoudhamdyae.weatherforecast.data.repository.RepositoryImpl
@@ -58,7 +57,7 @@ class HomeFragment : Fragment() {
             RepositoryImpl.getRepository(
                 RemoteDataSourceImpl.getInstance(),
                 LocalDataSourceImpl.getInstance(
-                    AppDatabase.getDatabase(requireContext()).locationDao()
+                    AppDatabase.getDatabase(requireContext())
                 )
             )
         )

@@ -23,8 +23,12 @@ import com.mahmoudhamdyae.weatherforecast.alarm.AlarmItem
 import com.mahmoudhamdyae.weatherforecast.alarm.AlarmScheduler
 import com.mahmoudhamdyae.weatherforecast.alarm.AlarmSchedulerImpl
 import com.mahmoudhamdyae.weatherforecast.alarm.AlarmType
+import com.mahmoudhamdyae.weatherforecast.data.local.AppDatabase
+import com.mahmoudhamdyae.weatherforecast.data.local.LocalDataSourceImpl
+import com.mahmoudhamdyae.weatherforecast.data.local.model.Alarm
+import com.mahmoudhamdyae.weatherforecast.data.remote.RemoteDataSourceImpl
+import com.mahmoudhamdyae.weatherforecast.data.repository.RepositoryImpl
 import com.mahmoudhamdyae.weatherforecast.databinding.FragmentAlertsBinding
-import com.mahmoudhamdyae.weatherforecast.domain.model.Alarm
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 
@@ -33,7 +37,17 @@ class AlertsFragment : Fragment() {
     private lateinit var binding: FragmentAlertsBinding
 
     private lateinit var adapter: AlertsAdapter
-    private lateinit var viewModel: AlertsViewModel
+    private val viewModel: AlertsViewModel by lazy {
+        val factory = AlertsViewModelFactory(
+            RepositoryImpl.getRepository(
+                RemoteDataSourceImpl.getInstance(),
+                LocalDataSourceImpl.getInstance(
+                    AppDatabase.getDatabase(requireContext())
+                )
+            )
+        )
+        ViewModelProvider(this, factory)[AlertsViewModel::class.java]
+    }
 
     private var hourOfDay: Int? = null
     private var minute: Int? = null
@@ -53,7 +67,6 @@ class AlertsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(requireActivity())[AlertsViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         adapter = AlertsAdapter(::showDelDialog)
@@ -153,6 +166,16 @@ class AlertsFragment : Fragment() {
             val message = dialog.findViewById<EditText>(R.id.label).text.toString()
             dialog.dismiss()
             setAlarm(message)
+            viewModel.addAlarm(
+                Alarm(
+                    minute = minute!!,
+                    hour = hourOfDay!!,
+                    day = day!!,
+                    month = month!!,
+                    year = year!!,
+                    isAlarm = alarmType == AlarmType.ALARM
+                )
+            )
         }
 
         dialog.findViewById<Button>(R.id.cancel_button).setOnClickListener {

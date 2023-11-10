@@ -41,7 +41,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
             RepositoryImpl.getRepository(
                 RemoteDataSourceImpl.getInstance(),
                 LocalDataSourceImpl.getInstance(
-                    AppDatabase.getDatabase(this).locationDao()
+                    AppDatabase.getDatabase(this)
                 )
             )
         )

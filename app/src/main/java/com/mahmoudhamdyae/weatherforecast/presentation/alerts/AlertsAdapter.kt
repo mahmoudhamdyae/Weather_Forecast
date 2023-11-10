@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mahmoudhamdyae.weatherforecast.R
 import com.mahmoudhamdyae.weatherforecast.databinding.ItemAlarmBinding
-import com.mahmoudhamdyae.weatherforecast.domain.model.Alarm
+import com.mahmoudhamdyae.weatherforecast.data.local.model.Alarm
 
 class AlertsAdapter(
     private val onDelAction: (Alarm) -> Unit

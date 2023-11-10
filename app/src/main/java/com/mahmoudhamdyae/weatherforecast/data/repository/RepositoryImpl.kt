@@ -1,6 +1,7 @@
 package com.mahmoudhamdyae.weatherforecast.data.repository
 
 import com.mahmoudhamdyae.weatherforecast.data.local.LocalDataSource
+import com.mahmoudhamdyae.weatherforecast.data.local.model.Alarm
 import com.mahmoudhamdyae.weatherforecast.data.mappers.toWeatherInfo
 import com.mahmoudhamdyae.weatherforecast.data.remote.RemoteDataSource
 import com.mahmoudhamdyae.weatherforecast.domain.model.Location
@@ -61,5 +62,17 @@ class RepositoryImpl (
 
     override suspend fun delLocation(location: Location) {
         localDataSource.delLocation(location)
+    }
+
+    override fun getAlarms(): Flow<List<Alarm>> {
+        return localDataSource.getAlarms()
+    }
+
+    override suspend fun insertAlarm(alarm: Alarm) {
+        localDataSource.insertAlarm(alarm)
+    }
+
+    override suspend fun deleteAlarm(alarm: Alarm) {
+        localDataSource.deleteAlarm(alarm)
     }
 }

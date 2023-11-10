@@ -1,19 +1,20 @@
 package com.mahmoudhamdyae.weatherforecast.data.local
 
+import com.mahmoudhamdyae.weatherforecast.data.local.model.Alarm
 import com.mahmoudhamdyae.weatherforecast.domain.model.Location
 import kotlinx.coroutines.flow.Flow
 
 class LocalDataSourceImpl(
-    private val dao: LocationDao
+    private val database: AppDatabase
 ): LocalDataSource {
 
     companion object {
         @Volatile
         private var INSTANCE: LocalDataSource? = null
 
-        fun getInstance(dao: LocationDao): LocalDataSource {
+        fun getInstance(database: AppDatabase): LocalDataSource {
             return INSTANCE ?: synchronized(this) {
-                LocalDataSourceImpl(dao).also {
+                LocalDataSourceImpl(database).also {
                     INSTANCE = it
                 }
             }
@@ -21,14 +22,26 @@ class LocalDataSourceImpl(
     }
 
     override suspend fun getLocations(): Flow<List<Location>> {
-        return dao.getLocations()
+        return database.locationDao().getLocations()
     }
 
     override suspend fun insertLocation(location: Location) {
-        dao.insertLocation(location)
+        database.locationDao().insertLocation(location)
     }
 
     override suspend fun delLocation(location: Location) {
-        return dao.delete(location)
+        return database.locationDao().delete(location)
+    }
+
+    override fun getAlarms(): Flow<List<Alarm>> {
+        return database.alarmDao().getAlarms()
+    }
+
+    override suspend fun insertAlarm(alarm: Alarm) {
+        database.alarmDao().insertAlarm(alarm)
+    }
+
+    override suspend fun deleteAlarm(alarm: Alarm) {
+        database.alarmDao().delete(alarm)
     }
 }
