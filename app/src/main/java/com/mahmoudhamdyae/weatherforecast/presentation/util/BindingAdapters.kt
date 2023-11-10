@@ -1,5 +1,8 @@
 package com.mahmoudhamdyae.weatherforecast.presentation.util
 
+import android.annotation.SuppressLint
+import android.icu.text.SimpleDateFormat
+import android.icu.util.Calendar
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -84,6 +87,24 @@ fun bindVisibility(view: View, list: List<Any>) {
     }
 }
 
+@SuppressLint("SetTextI18n")
 @BindingAdapter("bindTime")
 fun bindTime(view: TextView, time: String) {
+    val hourAndMinute = time.split(":")
+    val hour = if (hourAndMinute[0].toInt() > 12) hourAndMinute[0].toInt() - 12 else hourAndMinute[0].toInt()
+    val amOrPm = if (hourAndMinute[0].toInt() > 12) "PM" else "AM"
+    val minute = hourAndMinute[1]
+    view.text = "$hour:$minute $amOrPm"
+}
+
+@SuppressLint("SimpleDateFormat", "SetTextI18n")
+@BindingAdapter("bindDate")
+fun bindDate(view: TextView, date: String) {
+    val dayAndMonth = date.split(" ")
+    val day = dayAndMonth[0]
+    val month = dayAndMonth[1].toInt()
+    val cal = Calendar.getInstance()
+    cal.set(Calendar.MONTH, month)
+    val monthName: String = SimpleDateFormat("MMMM").format(cal.time)
+    view.text = "$day $monthName"
 }
