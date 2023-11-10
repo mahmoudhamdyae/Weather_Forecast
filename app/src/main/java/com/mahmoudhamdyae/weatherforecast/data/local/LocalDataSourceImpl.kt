@@ -2,6 +2,7 @@ package com.mahmoudhamdyae.weatherforecast.data.local
 
 import com.mahmoudhamdyae.weatherforecast.data.local.model.Alarm
 import com.mahmoudhamdyae.weatherforecast.domain.model.Location
+import com.mahmoudhamdyae.weatherforecast.domain.model.WeatherInfo
 import kotlinx.coroutines.flow.Flow
 
 class LocalDataSourceImpl(
@@ -43,5 +44,17 @@ class LocalDataSourceImpl(
 
     override suspend fun deleteAlarm(alarm: Alarm) {
         database.alarmDao().delete(alarm)
+    }
+
+    override fun getWeather(): Flow<WeatherInfo> {
+        return database.weatherDao().getWeather()
+    }
+
+    override suspend fun insertWeather(weather: WeatherInfo) {
+        database.weatherDao().insertWeather(weather)
+    }
+
+    override suspend fun deleteWeather(weather: WeatherInfo) {
+        database.weatherDao().delete(weather)
     }
 }

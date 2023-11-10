@@ -109,11 +109,13 @@ class HomeViewModel (
                 )
             ) {
                 is ApiState.Success -> {
-                    _uiState.value = _uiState.value.copy(
-                        isLoading = false,
-                        error = result.message,
-                        weather = result.data
-                    )
+                    result.data?.collect {
+                        _uiState.value = _uiState.value.copy(
+                            isLoading = false,
+                            error = result.message,
+                            weather = it
+                        )
+                    }
                 }
                 is ApiState.Failure -> {
                     _uiState.value = _uiState.value.copy(

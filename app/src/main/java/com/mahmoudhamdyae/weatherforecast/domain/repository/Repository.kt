@@ -14,7 +14,7 @@ interface Repository {
         lon: Double,
         windSpeed: String,
         language: String
-    ): ApiState<WeatherInfo>
+    ): ApiState<Flow<WeatherInfo>>
 
     // Locations
     suspend fun getLocations(): Flow<List<Location>>

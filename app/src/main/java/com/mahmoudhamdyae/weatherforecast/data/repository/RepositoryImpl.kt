@@ -36,19 +36,27 @@ class RepositoryImpl (
         lon: Double,
         windSpeed: String,
         language: String
-    ): ApiState<WeatherInfo> {
+    ): ApiState<Flow<WeatherInfo>> {
         return try {
+            val networkWeather = remoteDataSource.getWeather(
+                lat = lat,
+                lon = lon,
+                windSpeed = windSpeed,
+                language = language
+            ).toWeatherInfo()
+            localDataSource.insertWeather(networkWeather)
             ApiState.Success(
-                data = remoteDataSource.getWeather(
-                    lat = lat,
-                    lon = lon,
-                    windSpeed = windSpeed,
-                    language = language
-                ).toWeatherInfo()
+                data = localDataSource.getWeather()
             )
         } catch(e: Exception) {
             e.printStackTrace()
+            try {
+                ApiState.Success(
+                    data = localDataSource.getWeather()
+                )
+            } catch (e: Exception) {
             ApiState.Failure(e.message ?: "An unknown error occurred.")
+            }
         }
     }
 
