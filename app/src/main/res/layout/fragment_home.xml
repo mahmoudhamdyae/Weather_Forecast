@@ -145,7 +145,8 @@
                                 android:contentDescription="@null"
                                 android:src="@drawable/ic_pressure"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:tint="@color/md_theme_onSurface" />
 
                             <TextView
                                 android:id="@+id/current_pressure_label"
@@ -181,7 +182,8 @@
                                 android:contentDescription="@null"
                                 android:src="@drawable/ic_drop"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/current_pressure_label" />
+                                app:layout_constraintTop_toBottomOf="@id/current_pressure_label"
+                                app:tint="@color/md_theme_onSurface" />
 
                             <TextView
                                 android:id="@+id/current_humidity_label"
@@ -217,7 +219,8 @@
                                 android:paddingEnd="8dp"
                                 android:src="@drawable/ic_wind"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/current_humidity_label" />
+                                app:layout_constraintTop_toBottomOf="@+id/current_humidity_label"
+                                app:tint="@color/md_theme_onSurface" />
 
                             <TextView
                                 android:id="@+id/current_wind_speed_label"
