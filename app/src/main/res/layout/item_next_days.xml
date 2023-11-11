@@ -60,11 +60,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                app:setCel2="@{weatherDaily.maxTemp + `/` + weatherDaily.minTemp}"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:setCel2="@{weatherDaily.maxTemp + `/` + weatherDaily.minTemp}"
                 tools:text="23/13°C" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

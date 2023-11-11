@@ -48,6 +48,8 @@
     <string name="add_this_location_button">Add this location</string>
 
     <!-- Settings -->
+    <string name="m_s">m/s</string>
+    <string name="mi">mi</string>
     <string name="location_dialog_title">Location</string>
     <string name="temperature_dialog_title">Temperature</string>
     <string name="wind_speed_dialog_title">Wind Speed</string>

@@ -48,6 +48,8 @@
     <string name="add_this_location_button">أضف هذا الموقع</string>
 
     <!-- Settings -->
+    <string name="m_s">م/ث</string>
+    <string name="mi">ميل</string>
     <string name="location_dialog_title">الموقع</string>
     <string name="temperature_dialog_title">درجة الحرارة</string>
     <string name="wind_speed_dialog_title">سرعة الرياح</string>

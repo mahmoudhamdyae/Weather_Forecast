@@ -36,25 +36,25 @@
                     android:id="@+id/location_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:isErrorNull="@{viewModel.uiState.error}"
-                    app:isLoading="@{viewModel.uiState.isLoading}"
                     android:layout_margin="16dp"
                     android:textSize="16sp"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:isErrorNull="@{viewModel.uiState.error}"
+                    app:isLoading="@{viewModel.uiState.isLoading}"
                     app:layout_constraintStart_toStartOf="parent"
-                    tools:text="Mansoura"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Mansoura" />
 
                 <TextView
                     android:id="@+id/time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:isErrorNull="@{viewModel.uiState.error}"
-                    app:isLoading="@{viewModel.uiState.isLoading}"
                     android:layout_margin="16dp"
                     android:textSize="16sp"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:isErrorNull="@{viewModel.uiState.error}"
+                    app:isLoading="@{viewModel.uiState.isLoading}"
                     app:layout_constraintEnd_toEndOf="parent"
-                    tools:text="Fri,3 Nov"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Fri,3 Nov" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/current_day"
@@ -80,7 +80,6 @@
                             android:textSize="16sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:time="@{viewModel.uiState.weather.currentWeatherData.time}"
                             tools:text="Today 16:00" />
 
                         <ImageView
@@ -100,10 +99,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingBottom="16dp"
-                            app:setCel="@{viewModel.uiState.weather.currentWeatherData.temperatureCelsius}"
                             android:textSize="50sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/current_image"
+                            app:setCel="@{viewModel.uiState.weather.currentWeatherData.temperatureCelsius}"
                             tools:text="34°C" />
 
                         <TextView
@@ -228,11 +227,11 @@
                                 android:paddingStart="4dp"
                                 android:paddingTop="4dp"
                                 android:paddingEnd="4dp"
-                                android:text="@{viewModel.uiState.weather.currentWeatherData.windSpeed + `m/s`}"
                                 android:textSize="16sp"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/current_wind_speed_image"
+                                app:setms="@{viewModel.uiState.weather.currentWeatherData.windSpeed}"
                                 tools:text="5m/s" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -301,16 +300,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:drawableTopCompat="@drawable/ic_baseline_network_check_24"
                     android:text="@{viewModel.uiState.error}"
                     android:textAlignment="center"
                     android:textColor="@color/md_theme_error"
                     android:textSize="24sp"
+                    app:drawableTopCompat="@drawable/ic_baseline_network_check_24"
                     app:errorVisibility="@{viewModel.uiState.error}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

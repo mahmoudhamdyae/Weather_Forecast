@@ -13,14 +13,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.mahmoudhamdyae.weatherforecast.R
 import java.time.LocalDateTime
 
-@BindingAdapter("time")
-fun getTodayTime(view: TextView, time: LocalDateTime?) {
-    time?.let {
-//        val formattedTime = it.format(DateTimeFormatter.ofPattern("HH:mm"))
-//        view.text = view.context.getString(R.string.today, formattedTime)
-    }
-}
-
 @BindingAdapter("formattedTime")
 fun getFormattedTime(view: TextView, time: LocalDateTime?) {
 //    view.text = time?.format(
@@ -134,5 +126,17 @@ fun bindCel2(view: TextView, data: String) {
     } else {
         // Fahrenheit
         view.text = "$data°F"
+    }
+}
+
+@SuppressLint("SetTextI18n")
+@BindingAdapter("setms")
+fun bindMS(view: TextView, data: Double) {
+    val preferences = PreferenceManager.getDefaultSharedPreferences(view.context).all
+    if (preferences["wind_speed"] == view.context.getString(R.string.pref_wind_speed_meter)) {
+        view.text = "${data}${view.context.getString(R.string.m_s)}"
+    } else {
+        // Mile
+        view.text = "${data}${view.context.getString(R.string.mi)}"
     }
 }
