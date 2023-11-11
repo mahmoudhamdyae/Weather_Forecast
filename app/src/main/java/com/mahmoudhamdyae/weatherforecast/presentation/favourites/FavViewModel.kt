@@ -26,10 +26,10 @@ class FavViewModel (
     val fav = _fav.asStateFlow()
 
     init {
-        getFav()
+        getFavList()
     }
 
-    private fun getFav() {
+    fun getFavList() {
         viewModelScope.launch {
             repository.getLocations().collect {
                 _fav.value = it
@@ -40,6 +40,12 @@ class FavViewModel (
     fun delFav(location: Location) {
         viewModelScope.launch {
             repository.delLocation(location)
+        }
+    }
+
+    fun addFav(location: Location) {
+        viewModelScope.launch {
+            repository.insertLocation(location)
         }
     }
 }
