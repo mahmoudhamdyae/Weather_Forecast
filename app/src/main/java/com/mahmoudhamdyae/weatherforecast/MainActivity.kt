@@ -1,11 +1,16 @@
 package com.mahmoudhamdyae.weatherforecast
 
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.os.Bundle
+import android.util.DisplayMetrics
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import androidx.preference.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlin.text.Typography.dagger
+import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,5 +22,19 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val bottomView = findViewById<BottomNavigationView>(R.id.bottom_nav)
         setupWithNavController(bottomView, navHostFragment.navController)
+
+        val preferences = PreferenceManager.getDefaultSharedPreferences(this).all
+        val language =  if (preferences["language"] == getString(R.string.pref_language_english)) {
+            "en"
+        } else {
+            "ar"
+        }
+
+        val res: Resources = resources
+        // Change locale settings in the app.
+        val dm: DisplayMetrics = res.displayMetrics
+        val conf: Configuration = res.configuration
+        conf.setLocale(Locale(language)) // API 17+ only.
+        res.updateConfiguration(conf, dm)
     }
 }

@@ -64,6 +64,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         findPreference<Preference>("language")
             ?.setOnPreferenceChangeListener { _, newValue ->
                 Log.d(TAG, "Language: $newValue")
+                setLanguage(newValue.toString())
                 true
             }
 
@@ -84,6 +85,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 }
                 true
             }
+    }
+
+    private fun setLanguage(language: String) {
+        if (language == getString(R.string.pref_language_english)) {
+            // English
+        } else {
+            // Arabic
+        }
     }
 
     private fun openMap() {
