@@ -67,7 +67,6 @@
     <string name="pref_wind_speed_mile">ميل/ساعة</string>
     <string name="pref_language_english">الإنجليزية</string>
     <string name="pref_language_arabic">العربية</string>
-    <!-- Settings Arrays -->
     <string-array name="pref_location">
         <item>موقعى الحالى</item>
         <item>الخرائط</item>

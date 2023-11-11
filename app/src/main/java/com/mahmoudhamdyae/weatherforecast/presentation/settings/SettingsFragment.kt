@@ -4,9 +4,11 @@ import android.Manifest
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -14,8 +16,10 @@ import androidx.core.content.ContextCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
+import com.mahmoudhamdyae.weatherforecast.MainActivity
 import com.mahmoudhamdyae.weatherforecast.R
 import com.mahmoudhamdyae.weatherforecast.presentation.map.MapActivity
+import java.util.*
 
 
 private const val TAG = "Preferences"
@@ -88,11 +92,42 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun setLanguage(language: String) {
-        if (language == getString(R.string.pref_language_english)) {
-            // English
+        val lang = if (language == getString(R.string.pref_language_english)) {
+            Log.i(TAG, "setLanguage: en")
+            "en"
         } else {
-            // Arabic
+            Log.i(TAG, "setLanguage: ar")
+            "ar"
         }
+
+        val res = resources
+        val dm: DisplayMetrics = res.displayMetrics
+        val conf: Configuration = res.configuration
+        conf.setLocale(Locale(lang))
+        conf.setLayoutDirection(Locale(lang))
+        res.updateConfiguration(conf, dm)
+        restartApp()
+    }
+
+    private fun restartApp() {
+//        val intent = Intent(
+//            context,
+//            MainActivity::class.java
+//        )
+//        val mPendingIntentId = 2023
+//        val mPendingIntent = PendingIntent.getActivity(
+//            context,
+//            mPendingIntentId,
+//            intent,
+//            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+//        )
+//        val mgr =
+//            context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+//        mgr[AlarmManager.RTC, System.currentTimeMillis() + 100] = mPendingIntent
+//        exitProcess(0)
+        val intent = Intent(context, MainActivity::class.java)
+        this.startActivity(intent)
+        requireActivity().finishAffinity()
     }
 
     private fun openMap() {

@@ -1,7 +1,6 @@
 package com.mahmoudhamdyae.weatherforecast
 
 import android.content.res.Configuration
-import android.content.res.Resources
 import android.os.Bundle
 import android.util.DisplayMetrics
 import androidx.appcompat.app.AppCompatActivity
@@ -30,11 +29,11 @@ class MainActivity : AppCompatActivity() {
             "ar"
         }
 
-        val res: Resources = resources
-        // Change locale settings in the app.
+        val res = resources
         val dm: DisplayMetrics = res.displayMetrics
         val conf: Configuration = res.configuration
-        conf.setLocale(Locale(language)) // API 17+ only.
+        conf.setLocale(Locale(language))
+        conf.setLayoutDirection(Locale(language))
         res.updateConfiguration(conf, dm)
     }
 }
