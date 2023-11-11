@@ -90,7 +90,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.addMarker(
             MarkerOptions()
             .position(sydney)
-            .title("Marker in Sydney"))
+            .title(name))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
 
         setMapClick()
@@ -100,6 +100,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.setOnMapClickListener { latLng ->
             lat = latLng.latitude
             lon = latLng.longitude
+            SharedPrefImpl.getInstance(this).writeLatAndLon(lat!!, lon!!)
             try {
                 val addresses = geoCoder.getFromLocation(
                     latLng.latitude,

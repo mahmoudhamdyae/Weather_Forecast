@@ -90,7 +90,7 @@ class HomeFragment : Fragment() {
         val intent = activity?.intent
         lat = intent?.getDoubleExtra(LATITUDE, 0.0) ?: 0.0
         lon = intent?.getDoubleExtra(LONGITUDE, 0.0) ?: 0.0
-        SharedPrefImpl.getInstance(requireContext()).writeLatAndLon(lat, lon)
+//        SharedPrefImpl.getInstance(requireContext()).writeLatAndLon(lat, lon)
         name = intent?.getStringExtra(NAME)
         if (name != null) binding.locationName.text = name
 
@@ -196,7 +196,7 @@ class HomeFragment : Fragment() {
             if (location != null) {
                 lat = location.latitude
                 lon = location.longitude
-                SharedPrefImpl.getInstance(requireContext()).writeLatAndLon(lat, lon)
+//                SharedPrefImpl.getInstance(requireContext()).writeLatAndLon(lat, lon)
                 binding.viewModel?.getWeather(lat, lon, requireContext())
 
                 try {
