@@ -25,17 +25,16 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.mahmoudhamdyae.weatherforecast.R
+import com.mahmoudhamdyae.weatherforecast.data.SharedPrefImpl
 import com.mahmoudhamdyae.weatherforecast.data.local.AppDatabase
 import com.mahmoudhamdyae.weatherforecast.data.local.LocalDataSourceImpl
 import com.mahmoudhamdyae.weatherforecast.data.remote.RemoteDataSourceImpl
-import com.mahmoudhamdyae.weatherforecast.data.repository.PreferencesRepositoryImpl
 import com.mahmoudhamdyae.weatherforecast.data.repository.RepositoryImpl
 import com.mahmoudhamdyae.weatherforecast.databinding.FragmentHomeBinding
 import com.mahmoudhamdyae.weatherforecast.presentation.map.LATITUDE
 import com.mahmoudhamdyae.weatherforecast.presentation.map.LONGITUDE
 import com.mahmoudhamdyae.weatherforecast.presentation.map.NAME
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import java.io.IOException
 import java.time.LocalDateTime
@@ -55,7 +54,7 @@ class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by lazy {
         val factory = HomeViewModelFactory(
-            PreferencesRepositoryImpl.getPreferences(requireContext()),
+            SharedPrefImpl.getInstance(requireContext()),
             RepositoryImpl.getRepository(
                 RemoteDataSourceImpl.getInstance(),
                 LocalDataSourceImpl.getInstance(
@@ -93,6 +92,7 @@ class HomeFragment : Fragment() {
         val intent = activity?.intent
         lat = intent?.getDoubleExtra(LATITUDE, 0.0) ?: 0.0
         lon = intent?.getDoubleExtra(LONGITUDE, 0.0) ?: 0.0
+        SharedPrefImpl.getInstance(requireContext()).writeLatAndLon(lat, lon)
         name = intent?.getStringExtra(NAME)
         if (name != null) binding.locationName.text = name
 
@@ -127,7 +127,7 @@ class HomeFragment : Fragment() {
             }
         }
         lifecycleScope.launch {
-            viewModel.isFirstTime.take(1).collect {
+            viewModel.isFirstTime.collect {
                 if (it) {
                     showInitialSetupDialog()
                     this.cancel()
@@ -205,6 +205,7 @@ class HomeFragment : Fragment() {
             if (location != null) {
                 lat = location.latitude
                 lon = location.longitude
+                SharedPrefImpl.getInstance(requireContext()).writeLatAndLon(lat, lon)
                 binding.viewModel?.getWeather(lat, lon, requireContext())
 
                 try {

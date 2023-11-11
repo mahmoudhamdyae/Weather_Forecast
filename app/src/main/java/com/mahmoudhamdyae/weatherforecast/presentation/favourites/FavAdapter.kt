@@ -11,7 +11,8 @@ import com.mahmoudhamdyae.weatherforecast.databinding.ItemFavBinding
 import com.mahmoudhamdyae.weatherforecast.domain.model.Location
 
 class FavAdapter(
-    private val onDelAction: (Location) -> Unit
+    private val onDelAction: (Location) -> Unit,
+    private val onClickAction: (Location) -> Unit,
 ): ListAdapter<Location, FavAdapter.ViewHolder>(FavDataDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -22,9 +23,8 @@ class FavAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentPosition = getItem(position)
         holder.binding.location = currentPosition
-        holder.binding.delFav.setOnClickListener {
-            onDelAction(currentPosition)
-        }
+        holder.binding.delFav.setOnClickListener { onDelAction(currentPosition) }
+        holder.binding.cardWeather.setOnClickListener { onClickAction(currentPosition) }
     }
 
     inner class ViewHolder(var binding: ItemFavBinding): RecyclerView.ViewHolder(binding.root)

@@ -5,7 +5,7 @@ import com.mahmoudhamdyae.weatherforecast.domain.model.Location
 import com.mahmoudhamdyae.weatherforecast.domain.model.WeatherInfo
 import kotlinx.coroutines.flow.Flow
 
-class LocalDataSourceImpl(
+class LocalDataSourceImpl private constructor(
     private val database: AppDatabase
 ): LocalDataSource {
 

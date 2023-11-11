@@ -15,6 +15,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.mahmoudhamdyae.weatherforecast.MainActivity
 import com.mahmoudhamdyae.weatherforecast.R
+import com.mahmoudhamdyae.weatherforecast.data.SharedPrefImpl
 import com.mahmoudhamdyae.weatherforecast.data.local.AppDatabase
 import com.mahmoudhamdyae.weatherforecast.data.local.LocalDataSourceImpl
 import com.mahmoudhamdyae.weatherforecast.data.remote.RemoteDataSourceImpl
@@ -82,7 +83,10 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
 
         // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
+        val location = SharedPrefImpl.getInstance(this).readLatAndLon()
+        val lat = location.first
+        val lon = location.second
+        val sydney = LatLng(lat ?: 0.0, lon ?: 0.0)
         mMap.addMarker(
             MarkerOptions()
             .position(sydney)

@@ -5,7 +5,7 @@ import com.mahmoudhamdyae.weatherforecast.data.remote.model.WeatherResponse
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RemoteDataSourceImpl(
+class RemoteDataSourceImpl private constructor(
     private val apiService: ApiService
 ): RemoteDataSource {
 

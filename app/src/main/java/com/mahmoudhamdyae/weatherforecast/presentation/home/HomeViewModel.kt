@@ -6,27 +6,25 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.preference.PreferenceManager
 import com.mahmoudhamdyae.weatherforecast.R
-import com.mahmoudhamdyae.weatherforecast.domain.repository.PreferencesRepository
 import com.mahmoudhamdyae.weatherforecast.domain.repository.Repository
+import com.mahmoudhamdyae.weatherforecast.domain.repository.SharedPref
 import com.mahmoudhamdyae.weatherforecast.domain.util.ApiState
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 
 @Suppress("UNCHECKED_CAST")
 class HomeViewModelFactory(
-    private val preferencesRepository: PreferencesRepository,
+    private val sharedPref: SharedPref,
     private val repository: Repository
 ): ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return HomeViewModel(preferencesRepository, repository) as T
+        return HomeViewModel(sharedPref, repository) as T
     }
 }
 
 class HomeViewModel (
-    preferencesRepository: PreferencesRepository,
+    private val sharedPref: SharedPref,
     private val repository: Repository
 ): ViewModel() {
 
@@ -38,15 +36,7 @@ class HomeViewModel (
 
     init {
         viewModelScope.launch {
-            preferencesRepository.isFirstTime.take(1).collect {
-                if (it) {
-                    // First Time
-                    _isFirstTime.value = true
-                    this.cancel()
-                } else {
-                    this.cancel()
-                }
-            }
+            _isFirstTime.value = sharedPref.isFirstTime()
         }
     }
 
