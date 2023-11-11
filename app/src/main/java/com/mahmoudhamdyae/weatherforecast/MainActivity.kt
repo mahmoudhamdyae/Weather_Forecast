@@ -1,15 +1,12 @@
 package com.mahmoudhamdyae.weatherforecast
 
-import android.content.res.Configuration
 import android.os.Bundle
-import android.util.DisplayMetrics
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.preference.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.*
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,8 +27,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         val res = resources
-        val dm: DisplayMetrics = res.displayMetrics
-        val conf: Configuration = res.configuration
+        val dm = res.displayMetrics
+        val conf = res.configuration
         conf.setLocale(Locale(language))
         conf.setLayoutDirection(Locale(language))
         res.updateConfiguration(conf, dm)

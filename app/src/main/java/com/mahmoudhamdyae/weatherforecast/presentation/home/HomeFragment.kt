@@ -76,6 +76,7 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         getLocation()
+        viewModel.getWeather(lat, lon, requireContext())
     }
 
     @SuppressLint("SetTextI18n")

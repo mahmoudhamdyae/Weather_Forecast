@@ -66,7 +66,7 @@
     <string name="pref_wind_speed_meter">Meter/Sec</string>
     <string name="pref_wind_speed_mile">Mile/Hour</string>
     <string name="pref_language_english">English</string>
-    <string name="pref_language_arabic">Arabic</string>
+    <string name="pref_language_arabic">العربية</string>
     <!-- Settings Arrays -->
     <string-array name="pref_location">
         <item>GPS</item>
@@ -74,7 +74,7 @@
     </string-array>
     <string-array name="pref_language">
         <item>English</item>
-        <item>Arabic</item>
+        <item>العربية</item>
     </string-array>
     <string-array name="pref_temp">
         <item>Celsius</item>

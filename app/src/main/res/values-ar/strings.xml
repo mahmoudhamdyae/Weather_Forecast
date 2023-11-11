@@ -65,14 +65,14 @@
     <string name="pref_temp_fahrenheit">فهرنهايت</string>
     <string name="pref_wind_speed_meter">متر/ثانية</string>
     <string name="pref_wind_speed_mile">ميل/ساعة</string>
-    <string name="pref_language_english">الإنجليزية</string>
+    <string name="pref_language_english">English</string>
     <string name="pref_language_arabic">العربية</string>
     <string-array name="pref_location">
         <item>موقعى الحالى</item>
         <item>الخرائط</item>
     </string-array>
     <string-array name="pref_language">
-        <item>الإنجليزية</item>
+        <item>English</item>
         <item>العربية</item>
     </string-array>
     <string-array name="pref_temp">
