@@ -22,6 +22,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.preference.PreferenceManager
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.mahmoudhamdyae.weatherforecast.R
@@ -50,6 +51,7 @@ class HomeFragment : Fragment() {
     private var lat: Double = 0.0
     private var lon: Double = 0.0
     private var name: String? = null
+    private var isGps: Boolean = true
 
     private val viewModel: HomeViewModel by lazy {
         val factory = HomeViewModelFactory(
@@ -90,7 +92,6 @@ class HomeFragment : Fragment() {
         val intent = activity?.intent
         lat = intent?.getDoubleExtra(LATITUDE, 0.0) ?: 0.0
         lon = intent?.getDoubleExtra(LONGITUDE, 0.0) ?: 0.0
-//        SharedPrefImpl.getInstance(requireContext()).writeLatAndLon(lat, lon)
         name = intent?.getStringExtra(NAME)
         if (name != null) binding.locationName.text = name
 
@@ -127,6 +128,9 @@ class HomeFragment : Fragment() {
         if (SharedPrefImpl.getInstance(requireContext()).isFirstTime()) {
             showInitialSetupDialog()
         }
+
+        val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext()).all
+        isGps = preferences["location"] == "GPS"
     }
 
     private fun showInitialSetupDialog() {
@@ -146,16 +150,21 @@ class HomeFragment : Fragment() {
             ) == PackageManager.PERMISSION_GRANTED
 
     private fun getLocation() {
-        if (checkLocationPermissions()) {
-            if (isLocationEnabled()) {
-                requestNetworkLocalData()
+        if (isGps) {
+            if (checkLocationPermissions()) {
+                if (isLocationEnabled()) {
+                    requestNetworkLocalData()
+                } else {
+                    Toast.makeText(requireContext(), "Turn on Location", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                    startActivity(intent)
+                }
             } else {
-                Toast.makeText(requireContext(), "Turn on Location", Toast.LENGTH_SHORT).show()
-                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                startActivity(intent)
+                requestLocationPermissions()
             }
         } else {
-            requestLocationPermissions()
+            lat = SharedPrefImpl.getInstance(requireContext()).readLatAndLon().first ?: 0.0
+            lon = SharedPrefImpl.getInstance(requireContext()).readLatAndLon().second ?: 0.0
         }
     }
 
@@ -196,7 +205,6 @@ class HomeFragment : Fragment() {
             if (location != null) {
                 lat = location.latitude
                 lon = location.longitude
-//                SharedPrefImpl.getInstance(requireContext()).writeLatAndLon(lat, lon)
                 binding.viewModel?.getWeather(lat, lon, requireContext())
 
                 try {

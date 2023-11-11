@@ -108,7 +108,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                     1
                 )
                 if (addresses?.size!! > 0) {
-                    name = addresses[0].locality
+                    name = addresses[0].locality ?: ""
                 }
             } catch (e: IOException) {
                 e.printStackTrace()
