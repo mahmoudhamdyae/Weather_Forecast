@@ -1,20 +1,21 @@
 package com.mahmoudhamdyae.weatherforecast.presentation.settings
 
 import android.Manifest
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.mahmoudhamdyae.weatherforecast.R
-import android.content.ActivityNotFoundException
-import android.widget.Toast
+import com.mahmoudhamdyae.weatherforecast.presentation.map.MapActivity
 
 
 private const val TAG = "Preferences"
@@ -37,19 +38,23 @@ class SettingsFragment : PreferenceFragmentCompat() {
         // Location
         findPreference<Preference>("location")
             ?.setOnPreferenceChangeListener { _, newValue ->
-                Log.d(TAG, "Notifications enabled: $newValue")
+                Log.d(TAG, "location: $newValue")
+                if (newValue == "Map") {
+                    openMap()
+                    requireActivity().finish()
+                }
                 true
             }
 
         // Temperature
-        findPreference<Preference>("wind_speed")
+        findPreference<Preference>("temp")
             ?.setOnPreferenceChangeListener { _, newValue ->
                 Log.d(TAG, "Temp: $newValue")
                 true
             }
 
         // Wind Speed
-        findPreference<Preference>("location")
+        findPreference<Preference>("wind_speed")
             ?.setOnPreferenceChangeListener { _, newValue ->
                 Log.d(TAG, "Wind Speed: $newValue")
                 true
@@ -79,6 +84,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 }
                 true
             }
+    }
+
+    private fun openMap() {
+        val intent = Intent(requireActivity(), MapActivity::class.java)
+        startActivity(intent)
     }
 
     private val requestPermissionLauncher = registerForActivityResult(
