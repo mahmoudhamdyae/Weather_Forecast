@@ -14,7 +14,7 @@
     <string name="pressure">الضغط</string>
     <string name="humidity">الرطوبة</string>
     <string name="wind">الرياح</string>
-    <string name="grant_permissions_toast">يتبغى أن توافق على الأذونات</string>
+    <string name="grant_permissions_toast">ينبغى أن توافق على الأذونات</string>
     <string name="no_connection_toast">لا يوجد اتصال بالإنترنت</string>
     <!-- Initial Setup Dialog -->
     <string name="initial_setup">Initial Setup</string>
@@ -49,7 +49,7 @@
 
     <!-- Settings -->
     <string name="location_dialog_title">الموقع</string>
-    <string name="temperature_dialog_title">درحة الحرارة</string>
+    <string name="temperature_dialog_title">درجة الحرارة</string>
     <string name="wind_speed_dialog_title">سرعة الرياح</string>
     <string name="language_dialog_title">اللغة</string>
     <!-- Settings Default Values -->
