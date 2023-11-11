@@ -58,13 +58,13 @@
     <string name="wind_speed_default_value">متر/ثانية</string>
     <string name="lang_default_value">الإنجليزية</string>
     <!-- Settings Values -->
-    <string name="pref_location_gps">موقعى الحالى</string>
-    <string name="pref_location_map">الخرائط</string>
-    <string name="pref_temp_celsius">سيليزيوس</string>
-    <string name="pref_temp_kelvin">كلفن</string>
-    <string name="pref_temp_fahrenheit">فهرنهايت</string>
-    <string name="pref_wind_speed_meter">متر/ثانية</string>
-    <string name="pref_wind_speed_mile">ميل/ساعة</string>
+    <string name="pref_location_gps">GPS</string>
+    <string name="pref_location_map">Map</string>
+    <string name="pref_temp_celsius">Celsius</string>
+    <string name="pref_temp_kelvin">Kelvin</string>
+    <string name="pref_temp_fahrenheit">Fahrenheit</string>
+    <string name="pref_wind_speed_meter">Meter/Sec</string>
+    <string name="pref_wind_speed_mile">Mile/Hour</string>
     <string name="pref_language_english">English</string>
     <string name="pref_language_arabic">العربية</string>
     <string-array name="pref_location">
