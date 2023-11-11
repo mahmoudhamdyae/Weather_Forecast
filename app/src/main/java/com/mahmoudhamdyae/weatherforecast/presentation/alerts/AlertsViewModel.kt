@@ -26,10 +26,10 @@ class AlertsViewModel(
     val alarms = _alarms.asStateFlow()
 
     init {
-        getAlarms()
+        getAlarmsList()
     }
 
-    private fun getAlarms() {
+    fun getAlarmsList() {
         viewModelScope.launch {
             repository.getAlarms().collect {
                 _alarms.value = it

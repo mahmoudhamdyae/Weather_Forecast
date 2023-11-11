@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.flow
 class FakeRepository: Repository {
 
     private val locations = mutableListOf<Location>()
+    private val alarms = mutableListOf<Alarm>()
 
     override suspend fun getWeather(
         lat: Double,
@@ -34,14 +35,14 @@ class FakeRepository: Repository {
     }
 
     override fun getAlarms(): Flow<List<Alarm>> {
-        TODO("Not yet implemented")
+        return flow { emit(alarms) }
     }
 
     override suspend fun insertAlarm(alarm: Alarm) {
-        TODO("Not yet implemented")
+        alarms.add(alarm)
     }
 
     override suspend fun deleteAlarm(alarm: Alarm) {
-        TODO("Not yet implemented")
+        alarms.remove(alarm)
     }
 }
