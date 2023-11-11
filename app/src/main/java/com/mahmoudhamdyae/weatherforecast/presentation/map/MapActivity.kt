@@ -38,7 +38,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var geoCoder: Geocoder
     private var lat: Double? = null
     private var lon: Double? = null
-    private var name: String? = null
+    private var name: String = ""
 
     private val viewModel: FavViewModel by lazy {
         val factory = FavViewModelFactory(
@@ -67,7 +67,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                 Location(
                     lat!!,
                     lon!!,
-                    name!!
+                    name
                 )
             )
             val intent = Intent(this, MainActivity::class.java)

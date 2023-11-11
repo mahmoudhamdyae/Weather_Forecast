@@ -2,6 +2,7 @@ package com.mahmoudhamdyae.weatherforecast.data
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import com.mahmoudhamdyae.weatherforecast.domain.repository.SharedPref
 
 class SharedPrefImpl private constructor(
@@ -49,6 +50,7 @@ class SharedPrefImpl private constructor(
         editor.putFloat(LAT_KEY, lat.toFloat())
         editor.putFloat(LON_KEY, lon.toFloat())
         editor.apply()
+        Log.i("hahahahahaha", "writeLatAndLon: $lat $lon")
     }
 
     override fun readLatAndLon(): Pair<Double?, Double?> {
