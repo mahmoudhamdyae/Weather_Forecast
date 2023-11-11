@@ -18,9 +18,9 @@ class AlarmReceiver : BroadcastReceiver() {
         }
         val alarmTypeId = intent.getIntExtra("EXTRA_TYPE", 0)
         val alarmType = if (alarmTypeId == 0) AlarmType.ALARM else AlarmType.NOTIFICATION
-//        if (alarmType == AlarmType.ALARM) {
-//            playAudio(context)
-//        }
+        if (alarmType == AlarmType.ALARM) {
+            playAudio(context)
+        }
         val channelId = "alarm_id"
         context?.let { ctx ->
             val notificationManager =
