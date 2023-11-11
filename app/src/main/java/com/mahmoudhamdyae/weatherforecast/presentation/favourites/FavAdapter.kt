@@ -21,7 +21,8 @@ class FavAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currentPosition = getItem(position)
+        var currentPosition = getItem(position)
+        if (currentPosition.name == "") currentPosition = currentPosition.copy(name = "No Name")
         holder.binding.location = currentPosition
         holder.binding.delFav.setOnClickListener { onDelAction(currentPosition) }
         holder.binding.cardWeather.setOnClickListener { onClickAction(currentPosition) }
