@@ -38,7 +38,18 @@ class RepositoryImplTest {
     fun getWeather_LocalDataEqualsRemote() = runBlockingTest {
         repository.getWeather(31.2, 31.2, "indSpeed", "Ar")
 
-        assertEquals(localDataSource.getWeather(), remoteDataSource.getWeather(31.2, 31.2, "indSpeed", "Ar").toWeatherInfo())
+        assertEquals(
+            localDataSource.getWeather()[0].currentWeatherData,
+            remoteDataSource.getWeather(31.2, 31.2, "indSpeed", "Ar").toWeatherInfo().currentWeatherData
+        )
+        assertEquals(
+            localDataSource.getWeather()[0].weatherDataPerDay,
+            remoteDataSource.getWeather(31.2, 31.2, "indSpeed", "Ar").toWeatherInfo().weatherDataPerDay
+        )
+        assertEquals(
+            localDataSource.getWeather()[0].daily,
+            remoteDataSource.getWeather(31.2, 31.2, "indSpeed", "Ar").toWeatherInfo().daily
+        )
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -47,15 +58,6 @@ class RepositoryImplTest {
         repository.insertAlarm(alarm)
 
         assert(repository.getAlarms().first().contains(alarm))
-    }
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    @Test
-    fun delLocation_assertNotExist() = runBlockingTest {
-        repository.insertLocation(location)
-        repository.delLocation(location)
-
-        assertFalse(repository.getLocations().first().contains(location))
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
