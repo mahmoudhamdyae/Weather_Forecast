@@ -29,10 +29,12 @@ class SharedPrefImpl private constructor(
     override fun isFirstTime(): Boolean {
         val sharedPreferences: SharedPreferences =
             context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        return sharedPreferences.getBoolean(IS_FIRST_TIME, true)
+        val isFirstTime = sharedPreferences.getBoolean(IS_FIRST_TIME, true)
+        setFirstTimePreference()
+        return isFirstTime
     }
 
-    override fun setFirstTimePreference() {
+    private fun setFirstTimePreference() {
         val sharedPreferences: SharedPreferences =
             context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()

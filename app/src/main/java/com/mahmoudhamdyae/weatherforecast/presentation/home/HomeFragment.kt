@@ -34,7 +34,6 @@ import com.mahmoudhamdyae.weatherforecast.databinding.FragmentHomeBinding
 import com.mahmoudhamdyae.weatherforecast.presentation.map.LATITUDE
 import com.mahmoudhamdyae.weatherforecast.presentation.map.LONGITUDE
 import com.mahmoudhamdyae.weatherforecast.presentation.map.NAME
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import java.io.IOException
 import java.time.LocalDateTime
@@ -54,7 +53,6 @@ class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by lazy {
         val factory = HomeViewModelFactory(
-            SharedPrefImpl.getInstance(requireContext()),
             RepositoryImpl.getRepository(
                 RemoteDataSourceImpl.getInstance(),
                 LocalDataSourceImpl.getInstance(
@@ -126,15 +124,8 @@ class HomeFragment : Fragment() {
 
             }
         }
-        lifecycleScope.launch {
-            viewModel.isFirstTime.collect {
-                if (it) {
-                    showInitialSetupDialog()
-                    this.cancel()
-                } else {
-                    this.cancel()
-                }
-            }
+        if (SharedPrefImpl.getInstance(requireContext()).isFirstTime()) {
+            showInitialSetupDialog()
         }
     }
 

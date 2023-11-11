@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.preference.PreferenceManager
 import com.mahmoudhamdyae.weatherforecast.R
 import com.mahmoudhamdyae.weatherforecast.domain.repository.Repository
-import com.mahmoudhamdyae.weatherforecast.domain.repository.SharedPref
 import com.mahmoudhamdyae.weatherforecast.domain.util.ApiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,30 +14,19 @@ import kotlinx.coroutines.launch
 
 @Suppress("UNCHECKED_CAST")
 class HomeViewModelFactory(
-    private val sharedPref: SharedPref,
     private val repository: Repository
 ): ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return HomeViewModel(sharedPref, repository) as T
+        return HomeViewModel(repository) as T
     }
 }
 
 class HomeViewModel (
-    private val sharedPref: SharedPref,
     private val repository: Repository
 ): ViewModel() {
 
     private var _uiState = MutableStateFlow(HomeUiState())
     val uiState = _uiState.asStateFlow()
-
-    private var _isFirstTime = MutableStateFlow(false)
-    val isFirstTime = _isFirstTime.asStateFlow()
-
-    init {
-        viewModelScope.launch {
-            _isFirstTime.value = sharedPref.isFirstTime()
-        }
-    }
 
     fun getWeather(lat: Double, lon: Double, context: Context) {
 
