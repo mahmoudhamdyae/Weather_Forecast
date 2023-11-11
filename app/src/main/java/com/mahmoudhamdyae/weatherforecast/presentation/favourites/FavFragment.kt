@@ -58,7 +58,7 @@ class FavFragment : Fragment() {
 
             binding.viewModel = viewModel
             binding.lifecycleOwner = this
-            adapter = FavAdapter(::showDelDialog) {
+            adapter = FavAdapter(requireContext(), ::showDelDialog) {
                 val intent = Intent(activity, MainActivity::class.java)
                 var name = ""
                 try {

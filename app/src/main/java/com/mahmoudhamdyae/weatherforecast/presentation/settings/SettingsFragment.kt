@@ -39,7 +39,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         findPreference<Preference>("location")
             ?.setOnPreferenceChangeListener { _, newValue ->
                 Log.d(TAG, "location: $newValue")
-                if (newValue == "Map") {
+                if (newValue == R.string.pref_location_map) {
                     openMap()
                     requireActivity().finish()
                 }

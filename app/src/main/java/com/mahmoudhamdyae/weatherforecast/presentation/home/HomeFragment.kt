@@ -215,6 +215,8 @@ class HomeFragment : Fragment() {
                     )
                     if (addresses?.size!! > 0) {
                         binding.locationName.text = addresses[0].locality
+                    } else {
+                        binding.locationName.text = ""
                     }
                 } catch (e: IOException) {
                     e.printStackTrace()
