@@ -22,7 +22,9 @@ class TodayAdapter: ListAdapter<WeatherData, TodayAdapter.ViewHolder>(WeatherDat
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val current = getItem(position)
         holder.binding.weatherData = current
-        holder.binding.time.text = "{current.time.hour}"//:${current.time.minute}"
+//        current?.let { current1 ->
+//            holder.binding.time.text = "${current1.time.toLocalTime().hour}"//:${current.time.minute}"
+//        }
     }
 
     inner class ViewHolder(var binding: ItemHourlyWeatherBinding): RecyclerView.ViewHolder(binding.root)
