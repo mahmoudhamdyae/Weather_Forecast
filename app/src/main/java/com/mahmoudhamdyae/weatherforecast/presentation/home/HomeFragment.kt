@@ -82,6 +82,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext()).all
+        isGps = preferences["location"] == getString(R.string.pref_location_gps)
+
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         todayAdapter = TodayAdapter()
@@ -101,7 +104,7 @@ class HomeFragment : Fragment() {
         val local = Locale.getDefault()
         binding.time.text = "${time.dayOfWeek.getDisplayName(textStyle, local)},${time.dayOfMonth} ${time.month.getDisplayName(textStyle, local)}"
 
-        checkLocationPermissions()
+        if (isGps) checkLocationPermissions()
         if (lat == 0.0 || lon == 0.0) {
             getLocation()
         } else {
@@ -128,9 +131,6 @@ class HomeFragment : Fragment() {
         if (SharedPrefImpl.getInstance(requireContext()).isFirstTime()) {
             showInitialSetupDialog()
         }
-
-        val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext()).all
-        isGps = preferences["location"] == "GPS"
     }
 
     private fun showInitialSetupDialog() {
