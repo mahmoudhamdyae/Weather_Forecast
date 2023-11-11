@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.preference.PreferenceManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.mahmoudhamdyae.weatherforecast.R
@@ -106,4 +107,32 @@ fun bindDate(view: TextView, date: String) {
     cal.set(Calendar.MONTH, month)
     val monthName: String = SimpleDateFormat("MMMM").format(cal.time)
     view.text = "$day $monthName"
+}
+
+@SuppressLint("SetTextI18n")
+@BindingAdapter("setCel")
+fun bindCel(view: TextView, data: Int) {
+    val preferences = PreferenceManager.getDefaultSharedPreferences(view.context).all
+    if (preferences["temp"] == view.context.getString(R.string.pref_temp_celsius)) {
+        view.text = "$data°C"
+    } else if (preferences["temp"] == view.context.getString(R.string.pref_temp_kelvin)) {
+        view.text = "${data}K"
+    } else {
+        // Fahrenheit
+        view.text = "$data°F"
+    }
+}
+
+@SuppressLint("SetTextI18n")
+@BindingAdapter("setCel2")
+fun bindCel2(view: TextView, data: String) {
+    val preferences = PreferenceManager.getDefaultSharedPreferences(view.context).all
+    if (preferences["temp"] == view.context.getString(R.string.pref_temp_celsius)) {
+        view.text = "$data°C"
+    } else if (preferences["temp"] == view.context.getString(R.string.pref_temp_kelvin)) {
+        view.text = "${data}K"
+    } else {
+        // Fahrenheit
+        view.text = "$data°F"
+    }
 }

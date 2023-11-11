@@ -43,7 +43,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{weatherData.temperatureCelsius + `°C`}"
+                app:setCel="@{weatherData.temperatureCelsius}"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 tools:text="8.6°C" />
