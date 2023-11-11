@@ -106,7 +106,12 @@ class HomeFragment : Fragment() {
 
         if (isGps) checkLocationPermissions()
         if (lat == 0.0 || lon == 0.0) {
-            getLocation()
+            if (isGps) {
+                getLocation()
+            } else {
+                lat = SharedPrefImpl.getInstance(requireContext()).readLatAndLon().first ?: 0.0
+                lon = SharedPrefImpl.getInstance(requireContext()).readLatAndLon().second ?: 0.0
+            }
         } else {
             viewModel.getWeather(lat, lon, requireContext())
         }
