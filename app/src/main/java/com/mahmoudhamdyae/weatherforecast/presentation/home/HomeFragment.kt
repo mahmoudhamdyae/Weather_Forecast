@@ -132,7 +132,8 @@ class HomeFragment : Fragment() {
                 todayAdapter.submitList(it.weather?.weatherDataPerDay?.get(0))
                 nextDaysAdapter.submitList(it.weather?.daily)
 
-                binding.currentTime.text = view.context.getString(R.string.today, "${LocalDateTime.now().hour}:${LocalDateTime.now().minute}")
+                val calendar = Calendar.getInstance()
+                binding.currentTime.text = view.context.getString(R.string.today, "${calendar.get(Calendar.HOUR_OF_DAY)}:${calendar.get(Calendar.MINUTE)}")
 
             }
         }

@@ -13,12 +13,31 @@ import com.bumptech.glide.request.RequestOptions
 import com.mahmoudhamdyae.weatherforecast.R
 import java.time.LocalDateTime
 
-@BindingAdapter("formattedTime")
-fun getFormattedTime(view: TextView, time: LocalDateTime?) {
-//    view.text = time?.format(
-//        DateTimeFormatter.ofPattern("HH:mm")
-//    )
+@SuppressLint("SetTextI18n")
+@BindingAdapter("time")
+fun getTodayTime(view: TextView, time: LocalDateTime?) {
+    time?.let {
+        val todayText = view.context.getString(R.string.today_label)
+//        val hour = it.hour
+//        val minute = it.minute
+//        val timeText = " ${hour}:${minute}"
+//        view.text = "$todayText $timeText"
+    }
 }
+
+//@BindingAdapter("formattedTime")
+//fun getFormattedTime(view: TextView, weatherData: WeatherData?) {
+//    Log.i("hahahahaha", "getFormattedTime: ${weatherData.toString()}")
+//    weatherData?.time?.let {
+//        try {
+//            view.text = it.format(
+//                DateTimeFormatter.ofPattern("HH:mm")
+//            )
+//        } catch (e: Exception) {
+//            Log.e("hahahahaha", "getFormattedTime: $e", )
+//        }
+//    }
+//}
 
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {

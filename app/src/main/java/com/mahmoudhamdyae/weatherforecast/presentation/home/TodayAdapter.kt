@@ -1,5 +1,6 @@
 package com.mahmoudhamdyae.weatherforecast.presentation.home
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -17,8 +18,11 @@ class TodayAdapter: ListAdapter<WeatherData, TodayAdapter.ViewHolder>(WeatherDat
         return ViewHolder(binding)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.weatherData = getItem(position)
+        val current = getItem(position)
+        holder.binding.weatherData = current
+        holder.binding.time.text = "{current.time.hour}"//:${current.time.minute}"
     }
 
     inner class ViewHolder(var binding: ItemHourlyWeatherBinding): RecyclerView.ViewHolder(binding.root)

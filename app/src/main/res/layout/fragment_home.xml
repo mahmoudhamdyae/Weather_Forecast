@@ -80,6 +80,7 @@
                             android:textSize="16sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
+                            app:time="@{viewModel.uiState.weather.currentWeatherData.time}"
                             tools:text="Today 16:00" />
 
                         <ImageView
