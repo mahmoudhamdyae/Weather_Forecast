@@ -12,7 +12,7 @@ interface Repository {
     suspend fun getWeather(
         lat: Double,
         lon: Double,
-        windSpeed: String,
+        units: String,
         language: String
     ): ApiState<WeatherInfo>
 

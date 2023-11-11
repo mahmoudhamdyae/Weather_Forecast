@@ -71,21 +71,24 @@ class HomeViewModel (
             }
         }
 
+        val units: String = if (temp == "imperial" && windSpeed == "imperial") {
+            "imperial"
+        } else if (temp == "metric" && windSpeed == "metric") {
+            "metric"
+        } else if (temp == "standard" && windSpeed == "metric") {
+            "standard"
+        } else {
+            "metric"
+        }
+
 
 
         viewModelScope.launch {
-//            preferences.readLatitude.collect { latitude ->
-//                preferences.readLongitude.collect { longitude ->
-//                    if (latitude != null && longitude != null) {
-//                        _uiState.update {
-//                            WeatherUiState(isLoading = true, error = null)
-//                        }
-//                        when (val result = repository.getWeather(latitude, longitude)) {
             when (
                 val result = repository.getWeather(
                     lat = lat,
                     lon = lon,
-                    windSpeed = windSpeed,
+                    units = units,
                     language = lang
                 )
             ) {

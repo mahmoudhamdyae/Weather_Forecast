@@ -52,6 +52,19 @@ class SettingsFragment : PreferenceFragmentCompat() {
         findPreference<Preference>("temp")
             ?.setOnPreferenceChangeListener { _, newValue ->
                 Log.d(TAG, "Temp: $newValue")
+                val sp = PreferenceManager.getDefaultSharedPreferences(requireContext())
+                PreferenceManager.setDefaultValues(requireContext(), R.xml.preferences, true)
+                when (newValue) {
+                    getString(R.string.pref_temp_celsius) -> {
+                        sp.edit().putString("wind_speed", requireContext().getString(R.string.pref_wind_speed_meter)).apply()
+                    }
+                    getString(R.string.pref_temp_fahrenheit) -> {
+                        sp.edit().putString("wind_speed", requireContext().getString(R.string.pref_wind_speed_mile)).apply()
+                    }
+                    else -> {
+                        sp.edit().putString("wind_speed", requireContext().getString(R.string.pref_wind_speed_meter)).apply()
+                    }
+                }
                 true
             }
 
@@ -59,6 +72,16 @@ class SettingsFragment : PreferenceFragmentCompat() {
         findPreference<Preference>("wind_speed")
             ?.setOnPreferenceChangeListener { _, newValue ->
                 Log.d(TAG, "Wind Speed: $newValue")
+                val sp = PreferenceManager.getDefaultSharedPreferences(requireContext())
+                PreferenceManager.setDefaultValues(requireContext(), R.xml.preferences, true)
+                when (newValue) {
+                    getString(R.string.pref_wind_speed_meter) -> {
+                        sp.edit().putString("temp", requireContext().getString(R.string.pref_temp_celsius)).apply()
+                    }
+                    else -> {
+                        sp.edit().putString("temp", requireContext().getString(R.string.pref_temp_fahrenheit)).apply()
+                    }
+                }
                 true
             }
 

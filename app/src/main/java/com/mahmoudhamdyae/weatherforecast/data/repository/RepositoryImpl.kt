@@ -34,14 +34,14 @@ class RepositoryImpl (
     override suspend fun getWeather(
         lat: Double,
         lon: Double,
-        windSpeed: String,
+        units: String,
         language: String
     ): ApiState<WeatherInfo> {
         return try {
             val networkWeather = remoteDataSource.getWeather(
                 lat = lat,
                 lon = lon,
-                windSpeed = windSpeed,
+                units = units,
                 language = language
             ).toWeatherInfo()
             localDataSource.deleteWeather()

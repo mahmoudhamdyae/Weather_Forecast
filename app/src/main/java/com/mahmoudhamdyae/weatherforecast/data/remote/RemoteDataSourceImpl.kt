@@ -31,9 +31,9 @@ class RemoteDataSourceImpl private constructor(
     override suspend fun getWeather(
         lat: Double,
         lon: Double,
-        windSpeed: String,
+        units: String,
         language: String
     ): WeatherResponse {
-        return apiService.getWeather(lat, lon, windSpeed, language)
+        return apiService.getWeather(lat, lon, units, language)
     }
 }

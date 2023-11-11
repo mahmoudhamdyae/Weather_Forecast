@@ -16,7 +16,7 @@ class FakeRepository: Repository {
     override suspend fun getWeather(
         lat: Double,
         lon: Double,
-        windSpeed: String,
+        units: String,
         language: String
     ): ApiState<WeatherInfo> {
         TODO("Not yet implemented")
