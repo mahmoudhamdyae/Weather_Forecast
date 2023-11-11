@@ -14,6 +14,7 @@ import org.junit.Test
 
 class FavViewModelTest {
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
 
