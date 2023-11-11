@@ -39,4 +39,19 @@ class FavViewModelTest {
         // Then: Get the location
         assertTrue(viewModel.fav.first().contains(location))
     }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun getWeather_delFav_getInFlowNotExist() = runBlockingTest {
+        // GIVEN: new location object
+        val location = Location(31.6, 43.3, "name", "123")
+
+        // When: add new location
+        viewModel.addFav(location)
+        viewModel.delFav(location)
+        viewModel.getFavList()
+
+        // Then: Get the location
+        assertTrue(!viewModel.fav.first().contains(location))
+    }
 }
