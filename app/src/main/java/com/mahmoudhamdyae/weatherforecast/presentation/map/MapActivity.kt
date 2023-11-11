@@ -21,6 +21,8 @@ import com.mahmoudhamdyae.weatherforecast.data.remote.RemoteDataSourceImpl
 import com.mahmoudhamdyae.weatherforecast.data.repository.RepositoryImpl
 import com.mahmoudhamdyae.weatherforecast.databinding.ActivityMapBinding
 import com.mahmoudhamdyae.weatherforecast.domain.model.Location
+import com.mahmoudhamdyae.weatherforecast.presentation.favourites.FavViewModel
+import com.mahmoudhamdyae.weatherforecast.presentation.favourites.FavViewModelFactory
 import java.io.IOException
 import java.util.*
 
@@ -37,8 +39,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     private var lon: Double? = null
     private var name: String? = null
 
-    private val viewModel: MapViewModel by lazy {
-        val factory = MapViewModelFactory(
+    private val viewModel: FavViewModel by lazy {
+        val factory = FavViewModelFactory(
             RepositoryImpl.getRepository(
                 RemoteDataSourceImpl.getInstance(),
                 LocalDataSourceImpl.getInstance(
@@ -46,7 +48,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                 )
             )
         )
-        ViewModelProvider(this, factory)[MapViewModel::class.java]
+        ViewModelProvider(this, factory)[FavViewModel::class.java]
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
