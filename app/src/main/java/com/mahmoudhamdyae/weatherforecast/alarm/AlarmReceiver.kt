@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
+import android.media.RingtoneManager
 import androidx.core.app.NotificationCompat
 import com.mahmoudhamdyae.weatherforecast.R
 
@@ -18,17 +19,17 @@ class AlarmReceiver : BroadcastReceiver() {
         }
         val alarmTypeId = intent.getIntExtra("EXTRA_TYPE", 0)
         val alarmType = if (alarmTypeId == 0) AlarmType.ALARM else AlarmType.NOTIFICATION
-        if (alarmType == AlarmType.ALARM) {
-            playAudio(context)
-        }
         val channelId = "alarm_id"
         context?.let { ctx ->
             val notificationManager =
                 ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
             val builder = NotificationCompat.Builder(ctx, channelId)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentText(message)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setSound(soundUri)
+
             notificationManager.notify(1, builder.build())
         }
     }
