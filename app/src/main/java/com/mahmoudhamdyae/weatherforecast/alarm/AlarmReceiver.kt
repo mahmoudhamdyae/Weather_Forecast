@@ -4,6 +4,7 @@ import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.media.MediaPlayer
 import androidx.core.app.NotificationCompat
 import com.mahmoudhamdyae.weatherforecast.R
 
@@ -17,6 +18,9 @@ class AlarmReceiver : BroadcastReceiver() {
         }
         val alarmTypeId = intent.getIntExtra("EXTRA_TYPE", 0)
         val alarmType = if (alarmTypeId == 0) AlarmType.ALARM else AlarmType.NOTIFICATION
+//        if (alarmType == AlarmType.ALARM) {
+//            playAudio(context)
+//        }
         val channelId = "alarm_id"
         context?.let { ctx ->
             val notificationManager =
@@ -27,5 +31,11 @@ class AlarmReceiver : BroadcastReceiver() {
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
             notificationManager.notify(1, builder.build())
         }
+    }
+
+    private fun playAudio(context: Context?) {
+        val mMediaPlayer = MediaPlayer.create(context, R.raw.alarm)
+        mMediaPlayer!!.isLooping = true
+        mMediaPlayer.start()
     }
 }

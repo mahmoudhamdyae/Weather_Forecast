@@ -12,6 +12,7 @@ data class Alarm(
     val month: Int,
     val year: Int,
     val isAlarm: Boolean,
+    var label: String,
     @PrimaryKey
     val id: String = UUID.randomUUID().toString()
 )

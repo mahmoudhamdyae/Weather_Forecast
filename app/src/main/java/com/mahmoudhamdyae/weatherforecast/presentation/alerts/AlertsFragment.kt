@@ -172,6 +172,7 @@ class AlertsFragment : Fragment() {
                     day = day!!,
                     month = month!!,
                     year = year!!,
+                    label = message,
                     isAlarm = alarmType == AlarmType.ALARM
                 )
             )

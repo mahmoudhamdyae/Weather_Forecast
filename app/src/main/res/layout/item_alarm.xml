@@ -35,6 +35,19 @@
                 tools:text="2:52" />
 
             <TextView
+                android:id="@+id/alarm_label"
+                app:layout_constraintStart_toEndOf="@id/time"
+                android:padding="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@{alarm.label}"
+                android:layout_marginStart="16dp"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                tools:text="Alarm Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
