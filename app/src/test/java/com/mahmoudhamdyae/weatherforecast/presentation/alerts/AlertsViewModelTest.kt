@@ -31,7 +31,7 @@ class AlertsViewModelTest {
     @Test
     fun getAlarms_addAlarm_getInFlow() = runBlockingTest {
         // GIVEN: new alarm object
-        val alarm = Alarm(1, 2, 3, 4, 5, true)
+        val alarm = Alarm(1, 2, 3, 4, 5, true, "")
 
         // When: add new alarm
         viewModel.addAlarm(alarm)
@@ -45,7 +45,7 @@ class AlertsViewModelTest {
     @Test
     fun getAlarms_delAlarm_getInFlowNotExist() = runBlockingTest {
         // GIVEN: new alarm object
-        val alarm = Alarm(1, 2, 3, 4, 5, true)
+        val alarm = Alarm(1, 2, 3, 4, 5, true, "")
 
         // When: add new alarm
         viewModel.addAlarm(alarm)
