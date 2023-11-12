@@ -23,7 +23,7 @@ class RepositoryImplTest {
     private lateinit var repository: Repository
 
     private val location = Location(31.2, 23.2, "Mansoura")
-    private val alarm = Alarm(1,2, 3, 4, 5, true)
+    private val alarm = Alarm(1,2, 3, 4, 5, true, "")
 
     @Before
     fun setUp() {
