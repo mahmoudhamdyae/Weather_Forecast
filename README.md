@@ -25,6 +25,9 @@ Weather Forecast is a native Android mobile application that uses Kotlin Program
 ## API used
 [OpenWeatherMap API](https://openweathermap.org/api/one-call-api)
 
+## Downloads
+[APK Download](https://drive.google.com/file/d/1sJtblOJ2q-t83_wgjZUtVY3ZNfbvbQv-/view?usp=sharing)
+
 ## Screenshots
 <p align="center">
   <img src="Screenshots/1.jpg" height="450" width="220">
