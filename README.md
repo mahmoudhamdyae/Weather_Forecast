@@ -34,8 +34,4 @@ Weather Forecast is a native Android mobile application that uses Kotlin Program
   <img src="Screenshots/2.jpg" height="450" width="220">
   <img src="Screenshots/3.jpg" height="450" width="220">
 </p>
-
-
-
 https://github.com/mahmoudhamdyae/Weather_Forecast/assets/26709991/51537cce-13e7-405e-81c0-8b667299aba6
-
