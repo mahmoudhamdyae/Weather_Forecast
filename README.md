@@ -1,7 +1,7 @@
 # Weather Forecast
 Weather Forecast is a native Android mobile application that uses Kotlin Programming Language to help users know weather in any locatoin.
 
-##Application Features:
+## Application Features:
 * Get weather from location or map.
 * Save location and weather to local database.
 * Get alarms to weather.
