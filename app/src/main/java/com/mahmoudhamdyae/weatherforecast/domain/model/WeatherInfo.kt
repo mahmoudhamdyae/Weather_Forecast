@@ -13,5 +13,5 @@ data class WeatherInfo(
     val daily: List<WeatherDaily>,
     val currentWeatherData: WeatherData?,
     @PrimaryKey
-    val id: String =UUID.randomUUID().toString()
+    val id: String = UUID.randomUUID().toString()
 )
