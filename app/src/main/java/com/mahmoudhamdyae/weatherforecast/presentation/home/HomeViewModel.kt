@@ -81,8 +81,6 @@ class HomeViewModel (
             "metric"
         }
 
-
-
         viewModelScope.launch {
             when (
                 val result = repository.getWeather(

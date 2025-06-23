@@ -15,7 +15,7 @@ class WeatherApplication: Application() {
         val channelId = "alarm_id"
         val channelName = "alarm_name"
         val notificationManager =
-            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         val channel = NotificationChannel(
             channelId,
             channelName,

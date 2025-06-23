@@ -29,8 +29,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:bindTime="@{alarm.hour + `:` + alarm.minute}"
-                app:layout_constraintEnd_toEndOf="@id/date"
-                app:layout_constraintStart_toStartOf="@id/date"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="2:52" />
 

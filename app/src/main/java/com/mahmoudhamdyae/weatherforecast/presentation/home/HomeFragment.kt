@@ -246,7 +246,7 @@ class HomeFragment : Fragment() {
             getNetworkCapabilities(activeNetwork)?.run {
                 hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
                         || hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
-            } ?: false
+            } == true
         }
     }
 }
